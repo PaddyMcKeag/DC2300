@@ -1,5 +1,5 @@
 package elevator;
 
-public class Visitor {
-
+public interface Visitor extends Person {
+	
 }
