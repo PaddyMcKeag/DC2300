@@ -21,7 +21,7 @@ public class Dev {
 	//determines whether a call is necessary - again, every tick
 	public void call() {
 		if (currentDestination != currentFloor) {
-			Lift.addDestination(currentFloor);
+			Lift.addDestination(this);
 		}
 	}
 	
@@ -45,5 +45,5 @@ public class Dev {
 	public int getPersonId() {
 		return personId;
 	}
-
+	
 }
