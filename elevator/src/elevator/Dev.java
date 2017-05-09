@@ -1,9 +1,30 @@
 package elevator;
 
-public class Dev {
+public class Dev extends Worker {
 
-	public Dev() {
-		// TODO Auto-generated constructor stub
+	//boolean for company to determine which devs can work together
+	private boolean company;
+	
+	//sets up the rand and determines starting destination
+	public Dev(int id, boolean company) {
+		super(id);
+		this.currentDestination = RAND.nextInt(Building.getNumberOfFloors() / 2) + Building.getNumberOfFloors();  
+		this.company = company;
+		this.call();
+	}
+	
+	
+	//should be called by the run-time every tick
+	public void changeDestination(double probability) {
+		if (RAND.nextDouble() < probability) {
+			currentDestination = RAND.nextInt(Building.getNumberOfFloors() / 2) + Building.getNumberOfFloors();  
+		}
+		
+		this.call();
 	}
 
+	public boolean getCompany() {
+		return company;
+	}
+	
 }
