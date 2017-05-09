@@ -1,6 +1,8 @@
 package elevator;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.LinkedHashMap;
 
 public class Lift {
@@ -52,21 +54,59 @@ public class Lift {
 	
 	//Populates an array of destinations 
 	private void updateDestinations(){
-		ArrayList<Integer> otherDestinations = new ArrayList<Integer>();
-		if (currentDirection){
-			for (Person person : contains.keySet()){
-				if (person.getCurrentDestination() > currentFloor){
-					destinations.add(person.getCurrentDestination());
+		ArrayList<Integer> higher = new ArrayList<Integer>();
+		ArrayList<Integer> lower = new ArrayList<Integer>();
+		
+		//Get each person
+		for (Person person : contains.keySet()){
+			//check if they are in the lift, if they are add their destination, if not add their current floor
+			if (contains.get(person)){
+				if(person.getCurrentDestination() > currentFloor){
+					higher.add(person.currentDestination);
 				}else{
-					
+					lower.add(person.currentDestination);
+				}
+			}else{
+				if(person.getCurrentFloor() > currentFloor){
+					higher.add(person.currentFloor);
+				}else{
+					lower.add(person.currentFloor);
 				}
 			}
+		}
+		
+		//Sort higher as increasing values
+		Collections.sort(higher);
+		
+		for (int x = 0; x < higher.size(); x++){
+			int temp1 = higher.get(x);
+			int temp2 = higher.get(x+1);
+			if (temp1 == temp2){
+				higher.remove(temp2);
+				x = x - 1;
+			}
+		}
+		
+		//Sort lower as decreasing values
+		Collections.sort(lower, Collections.reverseOrder());
+		
+		for (int x = 0; x < lower.size(); x++){
+			int temp1 = lower.get(x);
+			int temp2 = lower.get(x+1);
+			if (temp1 == temp2){
+				lower.remove(temp2);
+				x = x - 1;
+				
+			}
+		}
+		
+		//add destinations to destinations arraylist dependent on movement direction
+		if (currentDirection){
+			higher.addAll(lower);
+			destinations.addAll(higher);
 		}else{
-			for (Person person : contains.keySet()){
-				if (person.getCurrentDestination() < currentFloor){
-					destinations.add(person.getCurrentDestination());
-				}
-			}
+			lower.addAll(higher);
+			destinations.addAll(lower);
 		}
 	}
 
