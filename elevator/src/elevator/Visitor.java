@@ -1,5 +1,8 @@
 package elevator;
 
-public interface Visitor extends Person {
+public abstract class Visitor extends Person {
 	
+	public Visitor(int personId) {
+		super(personId);
+	}
 }
