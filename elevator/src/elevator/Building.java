@@ -10,7 +10,7 @@ public class Building {
 	public static int numberOfFloors;
 	
 	public Building(int numberOfFloors) {
-		this.numberOfFloors = numberOfFloors;
+		Building.numberOfFloors = numberOfFloors;
 	}
 	
 	public static int getNumberOfFloors() {
