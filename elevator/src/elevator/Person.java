@@ -35,5 +35,9 @@ public abstract class Person {
 	public int getPersonId() {
 		return personId;
 	}
-	
+
+	public void leave() {
+		currentDestination = 0;
+		call();
+	}	
 }

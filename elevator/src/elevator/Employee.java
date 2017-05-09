@@ -9,9 +9,11 @@ public class Employee extends Worker {
 	}
 
 	public void changeDestination(double probability) {
-		if (RAND.nextDouble() < probability) {
-			this.currentDestination = RAND.nextInt(Building.getNumberOfFloors());
+		if (!waiting) {
+			if (RAND.nextDouble() < probability) {
+				this.currentDestination = RAND.nextInt(Building.getNumberOfFloors());
+			}
+			this.call();
 		}
-		this.call();
 	}
 }

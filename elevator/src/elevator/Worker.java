@@ -12,14 +12,17 @@ public abstract class Worker extends Person {
 		protected int currentFloor;
 		//determines starting place, destination, and 
 		protected final Random RAND = new Random();
+		//stops someone changing their mind if they're waiting
+		protected boolean waiting;
 
 	//constructs person with ID and destination
 	public Worker(int personId) {
 		super(personId);
+		waiting = false;
 	}
 	
-	public void leave() {
-		currentDestination = 0;
-		call();
+	public void call() {
+		super.call();
+		waiting = true;
 	}
 }

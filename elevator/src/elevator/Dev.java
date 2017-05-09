@@ -16,11 +16,13 @@ public class Dev extends Worker {
 	
 	//should be called by the run-time every tick
 	public void changeDestination(double probability) {
-		if (RAND.nextDouble() < probability) {
-			currentDestination = RAND.nextInt(Building.getNumberOfFloors() / 2) + Building.getNumberOfFloors();  
+		if (!waiting) {
+			if (RAND.nextDouble() < probability) {
+				currentDestination = RAND.nextInt(Building.getNumberOfFloors() / 2) + Building.getNumberOfFloors();  
+			}
+			
+			this.call();
 		}
-		
-		this.call();
 	}
 
 	public boolean getCompany() {
