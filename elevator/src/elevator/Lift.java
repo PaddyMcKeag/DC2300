@@ -51,23 +51,23 @@ public class Lift {
 	}
 	
 	//Populates an array of destinations 
-/*	private void updateDestinations(){
+	private void updateDestinations(){
 		ArrayList<Integer> otherDestinations = new ArrayList<Integer>();
 		if (currentDirection){
 			for (Person person : contains.keySet()){
-				if (person.getDestination() > currentFloor){
-					destinations.add(person.getDestination());
+				if (person.getCurrentDestination() > currentFloor){
+					destinations.add(person.getCurrentDestination());
 				}else{
 					
 				}
 			}
 		}else{
 			for (Person person : contains.keySet()){
-				if (person.getDestination() < currentFloor){
-					destinations.add(person.getDestination());
+				if (person.getCurrentDestination() < currentFloor){
+					destinations.add(person.getCurrentDestination());
 				}
 			}
 		}
-	}*/
+	}
 
 }
