@@ -1,5 +1,7 @@
 package elevator;
 
+import java.util.Random;
+
 public abstract class Person {
 	
 	//each person has an ID. can be used to differentiate between them but 
@@ -9,11 +11,20 @@ public abstract class Person {
 	protected int currentDestination;
 	//location of the person
 	protected int currentFloor;
+	//size is mainly for maintenance crews
+	protected int size;
+	//priority is used for clients
+	protected boolean priority;		
+	//determines starting place, destination, and 
+	protected final Random RAND = new Random();	
+	
 	
 	//constructs person with ID and destination
 	public Person(int personId) {
 		this.personId = personId;
 		currentFloor = 0;
+		size = 1;
+		priority = false;
 	}
 	
 	//calls the lift if the destination is wrong
@@ -36,4 +47,20 @@ public abstract class Person {
 		return personId;
 	}
 	
+	public int getSize() {
+		return size;
+	}
+
+	public boolean getPriority() {
+		return priority;
+	}
+	
+	public void leave() {
+		currentDestination = 0;
+		call();
+	}	
+	
+	public void setCurrentFloor(int currentFloor) {
+		this.currentFloor = currentFloor;
+	}
 }
