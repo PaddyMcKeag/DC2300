@@ -19,10 +19,14 @@ public class Lift {
 	//This is static as when an elevator is called the name will not always be known to the person class
 	private ArrayList<Integer> destinations;
 	
-	public Lift(){
+	//Lifts capacity set by user
+	private int capacity;
+	
+	public Lift(int capacity){
 		currentFloor = 0;
 		currentDirection = true;
 		destinations = new ArrayList<Integer>();
+		this.capacity = capacity;
 	}
 	
 	private void open(){
