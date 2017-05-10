@@ -56,6 +56,11 @@ public class Lift {
 		contains.put(person, false);
 	}
 	
+	public void doStuff(){
+		updateDestinations();
+		System.out.println(destinations.toString());
+	}
+	
 	//Populates an array of destinations 
 	private void updateDestinations(){
 		ArrayList<Integer> higher = new ArrayList<Integer>();
@@ -82,11 +87,11 @@ public class Lift {
 		//Sort higher as increasing values
 		Collections.sort(higher);
 		
-		for (int x = 0; x < higher.size(); x++){
-			int temp1 = higher.get(x);
-			int temp2 = higher.get(x+1);
+		for (int x = 1; x < higher.size(); x++){
+			int temp1 = higher.get(x-1);
+			int temp2 = higher.get(x);
 			if (temp1 == temp2){
-				higher.remove(temp2);
+				higher.remove(x);
 				x = x - 1;
 			}
 		}
@@ -94,11 +99,11 @@ public class Lift {
 		//Sort lower as decreasing values
 		Collections.sort(lower, Collections.reverseOrder());
 		
-		for (int x = 0; x < lower.size(); x++){
-			int temp1 = lower.get(x);
-			int temp2 = lower.get(x+1);
+		for (int x = 1; x < lower.size(); x++){
+			int temp1 = lower.get(x-1);
+			int temp2 = lower.get(x);
 			if (temp1 == temp2){
-				lower.remove(temp2);
+				lower.remove(x);
 				x = x - 1;
 				
 			}
