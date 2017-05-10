@@ -22,29 +22,42 @@ public class Lift {
 	//Lifts capacity set by user
 	private int capacity;
 	
+	//Lift doors open/close boolean open=true, closed=false
+	private boolean doorOpen;
+	
 	public Lift(int capacity){
 		currentFloor = 0;
 		currentDirection = true;
 		destinations = new ArrayList<Integer>();
 		this.capacity = capacity;
+		doorOpen = false;
 	}
 	
 	private void open(){
-		
+		doorOpen = true;
 	}
 	
 	private void close(){
-		
+		doorOpen = false;
 	}
 	
 	private void moveUp(){
-		
+		if (doorOpen){
+			//door must be closed
+		}else{
+			currentFloor = currentFloor + 1;
+		};
 	}
 	
 	private void moveDown(){
-		
+		if (doorOpen){
+			//door must be closed
+		}else{
+			currentFloor = currentFloor - 1;
+		}
 	}
 	
+	//IS THIS NECESSARY???
 	private void stopAtFloor(int floor){
 		if (floor != currentFloor){
 			
@@ -56,9 +69,38 @@ public class Lift {
 		contains.put(person, false);
 	}
 	
+	//the function that will be run every tick where the elevator will decide its next move
 	public void doStuff(){
 		updateDestinations();
+		int nextDestination = destinations.get(0);
+		if (nextDestination == currentFloor){
+			if (doorOpen){
+				//let people on or off or close door, when door is closed destination must be deleted
+			}else{
+				open();
+			}
+		}else if(nextDestination > currentFloor){
+			if (doorOpen){
+				//as destination is different to current floor doors must be closed to move
+				close();
+			}else{
+				//move up a floor
+				moveUp();
+			}
+		}else if(nextDestination < currentFloor){
+			if (doorOpen){
+				//as destination is different to current floor doors must be closed to move
+				close();
+			}else{
+				//move down a floor
+				moveDown();
+			}
+		}
 		System.out.println(destinations.toString());
+		
+		//removes first destination in list - WRONG PLACEMENT MAYBE?
+		destinations.remove(0);
+		//must remove people who get off, or change status of contains to true if they have got on
 	}
 	
 	//Populates an array of destinations 
