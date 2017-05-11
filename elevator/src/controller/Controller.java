@@ -33,7 +33,6 @@ public class Controller {
 	
 	private static void setUpGUI() {
 		gui = new SetupGUI();
-		gui.setUpGUI();
 	
 		while(!gui.getRunFlag) {
 		}

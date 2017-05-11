@@ -24,7 +24,7 @@ public class SetupGUI{
 	private JButton run;
 	
 	
-	public void setUpGUI(){
+	public SetupGUI(){
 		createFrame();
 	}
 	
