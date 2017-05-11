@@ -7,6 +7,7 @@ public class SetupFoo {
 	private int numberOfEmployees;
 	private int numberOfGoggles;
 	private int numberOfMugtome;
+	private int randomSeed;
 	private double changeFloorChance;
 	private double clientArrivalChance;
 	private boolean runFlag;
@@ -18,9 +19,18 @@ public class SetupFoo {
 		numberOfEmployees = 0;
 		numberOfGoggles = 0;
 		numberOfMugtome = 0;
+		randomSeed = 1;
 		changeFloorChance = 0.001;
 		clientArrivalChance = 0.001;
 		runFlag = false;
+	}
+	
+	public int getRandomSeed(){
+		return randomSeed;
+	}
+	
+	public void setRandomSeed(int x){
+		randomSeed = x;
 	}
 	
 	public boolean getRunFlag(){
@@ -103,6 +113,7 @@ public class SetupFoo {
 		sb.append("number of employees = "+numberOfEmployees+"\n");
 		sb.append("number of google developers = "+numberOfGoggles+"\n");
 		sb.append("number of mugtome developers = "+numberOfMugtome+"\n");
+		sb.append("random seed = "+randomSeed+"\n");
 		sb.append("change floor chance = "+changeFloorChance+"\n");
 		sb.append("client arrival chance = "+clientArrivalChance+"\n");
 		return sb.toString();
