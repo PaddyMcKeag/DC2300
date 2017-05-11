@@ -22,6 +22,7 @@ public class Controller {
 	private static double clientArrivalChance;
 	private static final double crewArrivalChance = 0.005;
 	private static int currentPersonId;
+	private static long seed;
 	
 	public static void main(String[] args) {
 		
@@ -34,10 +35,10 @@ public class Controller {
 	private static void setUpGUI() {
 		gui = new SetupGUI();
 	
-		while(!gui.getRunFlag) {
+		while(!gui.getModel().getRunFlag()) {
 		}
 		
-		runTime = gui.getModel().getrunTime();
+		runTime = gui.getModel().getRunTime();
 		numberOfFloors = gui.getModel().getNumberOfFloors();
 		elevatorCapacity = gui.getModel().getElevatorCapacity();
 		numberOfEmployees = gui.getModel().getNumberOfEmployees();
@@ -45,6 +46,7 @@ public class Controller {
 		numberOfMugtome = gui.getModel().getNumberOfMugtome();
 		changeFloorChance = gui.getModel().getChangeFloorChance();
 		clientArrivalChance = gui.getModel().getClientArrivalChance();
+		seed = gui.getModel().getRandomSeed();
 	}
 	
 	private static void setUpModel() {
@@ -55,19 +57,19 @@ public class Controller {
 		currentPersonId = 0;
 		
 		for (int i = 0; i < numberOfEmployees; i++) {
-			Employee employee = new Employee(currentPersonId);
+			Employee employee = new Employee(currentPersonId, seed);
 			people.add(employee);
 			currentPersonId++;
 		}
 		
 		for (int i = 0; i < numberOfGoggles; i++) {
-			Dev dev = new Dev(currentPersonId++, false);
+			Dev dev = new Dev(currentPersonId++, seed, false);
 			people.add(dev);
 			currentPersonId++;
 		}
 		
 		for (int i = 0; i < numberOfMugtome; i++) {
-			Dev dev = new Dev(currentPersonId++, true);
+			Dev dev = new Dev(currentPersonId++, seed, true);
 			people.add(dev);
 			currentPersonId++;
 		}
@@ -75,7 +77,7 @@ public class Controller {
 	
 	private static void addCrew() {
 		if (RAND.nextDouble() < crewArrivalChance) {
-			Crew crew = new Crew(currentPersonId);
+			Crew crew = new Crew(currentPersonId, seed);
 			people.add(crew);
 			currentPersonId++;
 		}
@@ -83,7 +85,7 @@ public class Controller {
 	
 	private static void addClient() {
 		if (RAND.nextDouble() < clientArrivalChance) {
-			Client client = new Client(currentPersonId);
+			Client client = new Client(currentPersonId, seed);
 			people.add(client);
 			currentPersonId++;
 		}

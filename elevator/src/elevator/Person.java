@@ -16,15 +16,16 @@ public abstract class Person {
 	//priority is used for clients
 	protected boolean priority;		
 	//determines starting place, destination, and 
-	protected final Random RAND = new Random();	
+	protected Random rand;	
 	
 	
 	//constructs person with ID and destination
-	public Person(int personId) {
+	public Person(int personId, long seed) {
 		this.personId = personId;
 		currentFloor = 0;
 		size = 1;
 		priority = false;
+		rand = new Random(seed);
 	}
 	
 	//calls the lift if the destination is wrong
