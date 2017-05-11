@@ -33,6 +33,21 @@ public class Lift {
 		doorOpen = false;
 	}
 	
+	//returns status of the lift door
+	public boolean getDoorOpen(){
+		return doorOpen;
+	}
+	
+	//Returns the lifts current floor
+	public int getCurrentFloor(){
+		return currentFloor;
+	}
+	
+	//returns an array of the destinations
+	public ArrayList<Integer> getDestinations(){
+		return destinations;
+	}
+	
 	private void open(){
 		doorOpen = true;
 	}
@@ -44,9 +59,10 @@ public class Lift {
 	private void moveUp(){
 		if (doorOpen){
 			//door must be closed
+			close();
 		}else{
 			//must not be trying to go above the limit of the building
-			if (currentFloor >= Building.getNumberOfFloors()){
+			if (currentFloor < Building.getNumberOfFloors()){
 				currentFloor = currentFloor + 1;
 			}
 		};
@@ -55,9 +71,10 @@ public class Lift {
 	private void moveDown(){
 		if (doorOpen){
 			//door must be closed
+			close();
 		}else{
 			//must not be trying to go below the building
-			if (currentFloor <= 0){
+			if (currentFloor > 0){
 				currentFloor = currentFloor - 1;
 			}
 		}
@@ -66,6 +83,11 @@ public class Lift {
 	//Gets passed the person when they call the lift as to know who they are and where they want to go
 	public static void addDestination(Person person){
 		contains.put(person, false);
+	}
+	
+	//mainly for testing purposes, to add destinations without the need of a person 
+	public void addDestination(int newDestination){
+		destinations.add(newDestination);
 	}
 	
 	//the function that will be run every tick where the elevator will decide its next move
@@ -84,27 +106,18 @@ public class Lift {
 					//check for people to get into lift and checks they can enter then lets them enter
 					enterLift();
 					
+					//remove destination as everyone has left or entered
+					destinations.remove(0);
+					
 				}else{
 					open();
 				}
 			}else if(nextDestination > currentFloor){
-				if (doorOpen){
-					//as destination is different to current floor doors must be closed to move
-					close();
-					destinations.remove(0);
-				}else{
-					//move up a floor
-					moveUp();
-				}
+				//move up a floor
+				moveUp();
 			}else if(nextDestination < currentFloor){
-				if (doorOpen){
-					//as destination is different to current floor doors must be closed to move
-					close();
-					destinations.remove(0);
-				}else{
-					//move down a floor
-					moveDown();
-				}
+				//move down a floor
+				moveDown();
 			}
 		}else{
 			//moves back to the ground floor if no directions
@@ -246,10 +259,18 @@ public class Lift {
 		}
 		
 		//set lift direction
-		if (destinations.get(0) > currentFloor){
-			currentDirection = true;
-		}else if (destinations.get(0) < currentFloor){
-			currentDirection = false;
+		if (destinations.size() > 0){
+			if (destinations.get(0) > currentFloor){
+				currentDirection = true;
+			}else if (destinations.get(0) < currentFloor){
+				currentDirection = false;
+			}
+		}else{
+			if (currentFloor > 0){
+				currentDirection = false;
+			}else{
+				currentDirection = true;
+			}
 		}
 	}
 
