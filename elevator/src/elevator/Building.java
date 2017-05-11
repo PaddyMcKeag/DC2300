@@ -21,4 +21,7 @@ public class Building {
 		complaints++;
 	}
 	
+	public int getComplaints() {
+		return complaints;
+	}
 }
