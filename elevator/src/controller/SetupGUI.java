@@ -9,7 +9,7 @@ import javax.swing.border.TitledBorder;
 import elevator.LabelledSlider;
 
 public class SetupGUI{
-	
+
 	private SetupFoo model;
 	private JFrame frame;
 	private JLabel intro;
@@ -24,15 +24,15 @@ public class SetupGUI{
 	//private JFormattedTextField changeFloorChance;
 	//private JFormattedTextField clientArrivalChance;
 	private JButton run;
-	
+
 	public SetupFoo getModel(){
 		return model;
 	}
-	
-	public void setUpGUI(){
+
+	public SetupGUI(){
 		createFrame();
 	}
-	
+
 	private void createFrame(){
 		model = new SetupFoo();
 		frame = new JFrame("setup");
@@ -43,37 +43,31 @@ public class SetupGUI{
 		employeeSlider = new LabelledSlider("Number of employees: ", 0, 50, 0);
 		gogglesDeveloperSlider = new LabelledSlider("Select number of goggles developers: ", 0, 20, 0);
 		mugtomeDeveloperSlider = new LabelledSlider("Number of Mugtome developers: ", 0, 20, 0);
-		//changeFloorChance = new JFormattedTextField();
-		//clientArrivalChance = new JFormattedTextField();
-		
-		SpinnerNumberModel changeFloorModel = new SpinnerNumberModel(0.001, 0.000, 1, 0.001);
-        changeFloorSpinner = new JSpinner(changeFloorModel);
-        JSpinner.NumberEditor changeFloorEditor = (JSpinner.NumberEditor)changeFloorSpinner.getEditor();
-        changeFloorEditor.getTextField().setHorizontalAlignment(SwingConstants.CENTER);
-        changeFloorEditor.getTextField().setHorizontalAlignment(SwingConstants.CENTER);
-        changeFloorEditor.setBorder(new CompoundBorder(new TitledBorder(new EmptyBorder(0,
-                0, 0, 0), "Select the chance of an employee changing floor per tick"), changeFloorEditor.getBorder()));
-        
-        SpinnerNumberModel clientArrivalModel = new SpinnerNumberModel(0.001, 0.000, 1, 0.001);
-        clientArrivalSpinner = new JSpinner(clientArrivalModel);
-        JSpinner.NumberEditor clientArrivalEditor = (JSpinner.NumberEditor)clientArrivalSpinner.getEditor();
-        clientArrivalEditor.getTextField().setHorizontalAlignment(SwingConstants.CENTER);
-        clientArrivalEditor.setBorder(new CompoundBorder(new TitledBorder(new EmptyBorder(0,
-                0, 0, 0), "Select the chance that a client will arrive per tick"), clientArrivalEditor.getBorder()));
+		run = new JButton("Run");
 
-		run = new JButton("Run");		
-		
 		// Set properties
+		SpinnerNumberModel changeFloorModel = new SpinnerNumberModel(0.001, 0.000, 1, 0.001);
+		changeFloorSpinner = new JSpinner(changeFloorModel);
+		JSpinner.NumberEditor changeFloorEditor = (JSpinner.NumberEditor)changeFloorSpinner.getEditor();
+		changeFloorEditor.getTextField().setHorizontalAlignment(SwingConstants.CENTER);
+		changeFloorEditor.getTextField().setHorizontalAlignment(SwingConstants.CENTER);
+		changeFloorEditor.setBorder(new CompoundBorder(new TitledBorder(new EmptyBorder(0,
+				0, 0, 0), "Select the chance of an employee changing floor per tick"), changeFloorEditor.getBorder()));
+
+		SpinnerNumberModel clientArrivalModel = new SpinnerNumberModel(0.001, 0.000, 1, 0.001);
+		clientArrivalSpinner = new JSpinner(clientArrivalModel);
+		JSpinner.NumberEditor clientArrivalEditor = (JSpinner.NumberEditor)clientArrivalSpinner.getEditor();
+		clientArrivalEditor.getTextField().setHorizontalAlignment(SwingConstants.CENTER);
+		clientArrivalEditor.setBorder(new CompoundBorder(new TitledBorder(new EmptyBorder(0,
+				0, 0, 0), "Select the chance that a client will arrive per tick"), clientArrivalEditor.getBorder()));
+
 		floorSlider.setMajorTickSpacing(1);
 		elevatorCapacitySlider.setMajorTickSpacing(2);
 		employeeSlider.setMajorTickSpacing(5);
 		runTimeSlider.setMajorTickSpacing(300);
 		gogglesDeveloperSlider.setMajorTickSpacing(2);
 		mugtomeDeveloperSlider.setMajorTickSpacing(2);
-		//changeFloorChance.setColumns(10);
-		//changeFloorChance.setColumns(10);
-		
-		
+
 		//add components to frame
 		frame.setLayout(new GridLayout(10, 1));
 		frame.add(intro);
@@ -85,11 +79,11 @@ public class SetupGUI{
 		frame.add(mugtomeDeveloperSlider);
 		frame.add(changeFloorSpinner);
 		frame.add(clientArrivalSpinner);
-		
+
 		frame.add(run);
 		//frame.add();
-		
-		
+
+
 		frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		run.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ae) {
@@ -99,19 +93,16 @@ public class SetupGUI{
 				model.setNumberOfEmployees(employeeSlider.getValue());
 				model.setNumberOfGoggles(gogglesDeveloperSlider.getValue());
 				model.setNumberOfMugtome(mugtomeDeveloperSlider.getValue());
-				model.setChangeFloorChance(changeFloorSpinner.getValue());
-				model.setClientArrivalChance(clientArrivalSpinner.getValue());
+				model.setChangeFloorChance((double) changeFloorSpinner.getValue());
+				model.setClientArrivalChance((double) clientArrivalSpinner.getValue());
 				model.setRunFlag(true);
 				System.out.print("Model is " + model);
 			}
 		});
-		
-		
+
+
 		frame.pack();
 		frame.setVisible(true);
 	}
-	
-	public static void main(String[] args) {
-		SetupGUI sg = new SetupGUI();
-	}
+
 }

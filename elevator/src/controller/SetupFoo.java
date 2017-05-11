@@ -20,6 +20,7 @@ public class SetupFoo {
 		numberOfMugtome = 0;
 		changeFloorChance = 0.001;
 		clientArrivalChance = 0.001;
+		runFlag = false;
 	}
 	
 	public boolean getRunFlag(){
