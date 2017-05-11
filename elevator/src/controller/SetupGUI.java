@@ -19,6 +19,7 @@ public class SetupGUI{
 	private LabelledSlider employeeSlider;
 	private LabelledSlider gogglesDeveloperSlider;
 	private LabelledSlider mugtomeDeveloperSlider;
+	private LabelledSlider randomSeedSlider;
 	private JSpinner changeFloorSpinner;
 	private JSpinner clientArrivalSpinner;
 	//private JFormattedTextField changeFloorChance;
@@ -43,19 +44,23 @@ public class SetupGUI{
 		employeeSlider = new LabelledSlider("Number of employees: ", 0, 50, 0);
 		gogglesDeveloperSlider = new LabelledSlider("Select number of goggles developers: ", 0, 20, 0);
 		mugtomeDeveloperSlider = new LabelledSlider("Number of Mugtome developers: ", 0, 20, 0);
+		randomSeedSlider = new LabelledSlider("Random seed: ", 1, 10, 1);
+		SpinnerNumberModel changeFloorModel = new SpinnerNumberModel(0.001, 0.000, 1, 0.001);
+		changeFloorSpinner = new JSpinner(changeFloorModel);
+		SpinnerNumberModel clientArrivalModel = new SpinnerNumberModel(0.001, 0.000, 1, 0.001);
+		clientArrivalSpinner = new JSpinner(clientArrivalModel);
+		
 		run = new JButton("Run");
 
 		// Set properties
-		SpinnerNumberModel changeFloorModel = new SpinnerNumberModel(0.001, 0.000, 1, 0.001);
-		changeFloorSpinner = new JSpinner(changeFloorModel);
+		
 		JSpinner.NumberEditor changeFloorEditor = (JSpinner.NumberEditor)changeFloorSpinner.getEditor();
 		changeFloorEditor.getTextField().setHorizontalAlignment(SwingConstants.CENTER);
 		changeFloorEditor.getTextField().setHorizontalAlignment(SwingConstants.CENTER);
 		changeFloorEditor.setBorder(new CompoundBorder(new TitledBorder(new EmptyBorder(0,
 				0, 0, 0), "Select the chance of an employee changing floor per tick"), changeFloorEditor.getBorder()));
 
-		SpinnerNumberModel clientArrivalModel = new SpinnerNumberModel(0.001, 0.000, 1, 0.001);
-		clientArrivalSpinner = new JSpinner(clientArrivalModel);
+		
 		JSpinner.NumberEditor clientArrivalEditor = (JSpinner.NumberEditor)clientArrivalSpinner.getEditor();
 		clientArrivalEditor.getTextField().setHorizontalAlignment(SwingConstants.CENTER);
 		clientArrivalEditor.setBorder(new CompoundBorder(new TitledBorder(new EmptyBorder(0,
@@ -67,6 +72,7 @@ public class SetupGUI{
 		runTimeSlider.setMajorTickSpacing(300);
 		gogglesDeveloperSlider.setMajorTickSpacing(2);
 		mugtomeDeveloperSlider.setMajorTickSpacing(2);
+		randomSeedSlider.setMajorTickSpacing(1);
 
 		//add components to frame
 		frame.setLayout(new GridLayout(10, 1));
@@ -77,6 +83,7 @@ public class SetupGUI{
 		frame.add(employeeSlider);
 		frame.add(gogglesDeveloperSlider);
 		frame.add(mugtomeDeveloperSlider);
+		frame.add(randomSeedSlider);
 		frame.add(changeFloorSpinner);
 		frame.add(clientArrivalSpinner);
 
