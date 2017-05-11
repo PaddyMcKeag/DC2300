@@ -5,11 +5,11 @@ public class Client extends Visitor {
 	//times how long they've been waiting until they leave
 	protected int waitTimer;
 	
-	public Client(int personId) {
-		super(personId);
+	public Client(int personId, long seed) {
+		super(personId, seed);
 		this.priority = true;
-		this.timeToLeave = (RAND.nextInt(20) + 10) * 6;
-		this.currentDestination = RAND.nextInt((Building.getNumberOfFloors() - 1) / 2);
+		this.timeToLeave = (rand.nextInt(20) + 10) * 6;
+		this.currentDestination = rand.nextInt((Building.getNumberOfFloors() - 1) / 2);
 		waitTimer = 0;
 		this.call();
 	}

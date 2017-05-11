@@ -104,5 +104,4 @@ public class SetupGUI{
 		frame.pack();
 		frame.setVisible(true);
 	}
-
 }
