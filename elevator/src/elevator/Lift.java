@@ -223,27 +223,8 @@ public class Lift {
 		//Sort higher as increasing values
 		Collections.sort(higher);
 		
-		for (int x = 1; x < higher.size(); x++){
-			int temp1 = higher.get(x-1);
-			int temp2 = higher.get(x);
-			if (temp1 == temp2){
-				higher.remove(x);
-				x = x - 1;
-			}
-		}
-		
 		//Sort lower as decreasing values
 		Collections.sort(lower, Collections.reverseOrder());
-		
-		for (int x = 1; x < lower.size(); x++){
-			int temp1 = lower.get(x-1);
-			int temp2 = lower.get(x);
-			if (temp1 == temp2){
-				lower.remove(x);
-				x = x - 1;
-				
-			}
-		}
 		
 		//add destinations to destinations arraylist dependent on movement direction
 		if (currentDirection){
@@ -252,6 +233,16 @@ public class Lift {
 		}else{
 			lower.addAll(higher);
 			destinations.addAll(lower);
+		}
+		
+		//removes duplicate values from destinations array
+		for (int x = 1; x < destinations.size(); x++){
+			int temp1 = destinations.get(x-1);
+			int temp2 = destinations.get(x);
+			if (temp1 == temp2){
+				lower.remove(x);
+				x = x - 1;
+			}
 		}
 		
 		//set lift direction

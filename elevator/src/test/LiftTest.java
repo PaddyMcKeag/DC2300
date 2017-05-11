@@ -17,15 +17,15 @@ public class LiftTest {
 		//creates building
 		Building building = new Building(8);
 		//Creates employees
-		Employee employee1 = new Employee(1);
-		Employee employee2 = new Employee(2);
-		Employee employee3 = new Employee(3);
-		Employee employee4 = new Employee(4);
-		Employee employee5 = new Employee(5);
-		Employee employee6 = new Employee(6);
-		Employee employee7 = new Employee(7);
-		Employee employee8 = new Employee(8);
-		Employee employee9 = new Employee(9);
+		Employee employee1 = new Employee(1, 1);
+		Employee employee2 = new Employee(2, 1);
+		Employee employee3 = new Employee(3, 1);
+		Employee employee4 = new Employee(4, 1);
+		Employee employee5 = new Employee(5, 1);
+		Employee employee6 = new Employee(6, 1);
+		Employee employee7 = new Employee(7, 1);
+		Employee employee8 = new Employee(8, 1);
+		Employee employee9 = new Employee(9, 1);
 		//Changes employees current floor
 		employee1.setCurrentFloor(1);
 		employee2.setCurrentFloor(3);
