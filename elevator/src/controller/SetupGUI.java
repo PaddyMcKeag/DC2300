@@ -24,7 +24,7 @@ public class SetupGUI{
 	private JButton run;
 	
 	
-	public SetupGUI(){
+	public void setUpGUI(){
 		createFrame();
 	}
 	
@@ -86,9 +86,5 @@ public class SetupGUI{
 		
 		frame.pack();
 		frame.setVisible(true);
-	}
-	
-	public static void main(String[] args) {
-		SetupGUI sg = new SetupGUI();
 	}
 }
