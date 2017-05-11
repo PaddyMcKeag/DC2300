@@ -47,7 +47,7 @@ public class LiftTest {
 		lift.addDestination(employee9);
 		lift.addDestination(employee8);
 		//Makes the lift process the destination array and order it correctly
-		lift.doStuff();
+		lift.tick();
 	}
 
 }
