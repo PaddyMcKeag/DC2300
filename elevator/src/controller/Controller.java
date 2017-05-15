@@ -91,8 +91,31 @@ public class Controller {
 		}
 	}
 	
+	public static ArrayList<Person> getPeople() {
+		ArrayList<Person> toReturn = new ArrayList<Person>();
+		for (int i = 0; i < people.size(); i++) {
+			toReturn.add(people.get(i));
+		}
+		return toReturn;
+	}
+	
+	public static int getLiftFloor() {
+		return lift.getCurrentFloor();
+	}
+	
 	private static void startSim() {
-		
+		int timer = 0;
+		while(timer < runTime) {
+			lift.tick();
+			gui.tick();
+			addCrew();
+			addClient();
+			for (Person person : people) {
+				if (person instanceof Worker) {
+					person.changeDestination(changeFloorChance);
+				}
+			}
+		}
 	}
 	
 }
