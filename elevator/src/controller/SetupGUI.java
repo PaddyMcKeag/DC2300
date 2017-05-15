@@ -13,6 +13,7 @@ public class SetupGUI{
 	private SetupFoo model;
 	private JFrame frame;
 	private JLabel intro;
+	private JLabel placeholder;
 	private LabelledSlider floorSlider;
 	private LabelledSlider elevatorCapacitySlider;
 	private LabelledSlider runTimeSlider;
@@ -38,6 +39,7 @@ public class SetupGUI{
 		model = new SetupFoo();
 		frame = new JFrame("setup");
 		intro = new JLabel("Welcome to the elevator simulator, choose your simulation parameters.");
+		placeholder = new JLabel("");
 		floorSlider = new LabelledSlider("Number of floors: ", 1, 10, 1);
 		elevatorCapacitySlider = new LabelledSlider("Elevator capacity: ", 4, 20, 4);
 		runTimeSlider = new LabelledSlider("Select simulation run time in ticks (1 tick = 10 seconds): ", 300, 3000, 300);
@@ -75,8 +77,9 @@ public class SetupGUI{
 		randomSeedSlider.setMajorTickSpacing(1);
 
 		//add components to frame
-		frame.setLayout(new GridLayout(10, 1));
+		frame.setLayout(new GridLayout(6, 1));
 		frame.add(intro);
+		frame.add(placeholder);
 		frame.add(floorSlider);
 		frame.add(elevatorCapacitySlider);
 		frame.add(runTimeSlider);
