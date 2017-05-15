@@ -31,6 +31,8 @@ public class Lift {
 		destinations = new ArrayList<Integer>();
 		this.capacity = capacity;
 		doorOpen = false;
+		contains.clear();
+		destinations.clear();
 	}
 	
 	//returns status of the lift door
@@ -119,7 +121,7 @@ public class Lift {
 				//move down a floor
 				moveDown();
 			}
-		}else{
+		}else if (currentFloor > 0){
 			//moves back to the ground floor if no directions
 			currentDirection = false;
 			moveDown();
@@ -132,7 +134,7 @@ public class Lift {
 			boolean inLift = contains.get(person);
 			//if the person is in the lift and there destination is the current floor do...
 			if (inLift && person.currentDestination == currentFloor){
-				//remove from contains as theyre not waiting for a lift
+				//remove from contains as they are not waiting for a lift
 				contains.remove(person);
 				//change their current floor to represent where they are now
 				person.setCurrentFloor(currentFloor);
@@ -142,7 +144,7 @@ public class Lift {
 	
 	//Finds people who want to enter the lift
 	private void enterLift(){
-		//first checks for piority people
+		//first checks for priority people
 		for (Person person : contains.keySet()){
 			boolean inLift = contains.get(person);
 			if (!inLift && person.currentFloor == currentFloor && allowedToEnter(person) && person.getPriority()){
@@ -160,7 +162,7 @@ public class Lift {
 	
 	//checks if each person can enter when at the front of the queue
 	private boolean allowedToEnter(Person person){
-		if (remainingCapacity() >= person.size){
+		if (remainingCapacity() >= person.getSize()){
 			//checks for developers, as developers wont go in the lift with rivals
 			if (person instanceof Dev){
 				boolean sameDev = devCompare(person);
@@ -168,8 +170,9 @@ public class Lift {
 				if (sameDev){
 					return true;
 				}	
+			} else{
+				return true;
 			}
-			return true;
 		}
 		return false;	
 	}
@@ -180,13 +183,9 @@ public class Lift {
 			boolean inLift = contains.get(person);
 			if (inLift){
 				if (person instanceof Dev){
-					if(((Dev) developer).getCompany() == ((Dev) person).getCompany()){
-						//returns true if both people in lift and developer are same company
+					if(((Dev) developer).getCompany() != ((Dev) person).getCompany()){
+						//returns false if both people in lift and developer work for rival companies
 						//e.g. can both be in the lift at the same time
-						return true;
-					}else{
-						//returns false when a competitor is in the lift
-						//e.g. can not both be in the lift
 						return false;
 					}
 				}
@@ -197,12 +196,12 @@ public class Lift {
 	}
 	
 	//calculates capacity remaining by checking what people are in the lift
-	private int remainingCapacity(){
+	public int remainingCapacity(){
 		int remainingCapacity = capacity;
 		for (Person person : contains.keySet()){
 			boolean inLift = contains.get(person);
 			if (inLift){
-				capacity = capacity - person.size;
+				remainingCapacity = remainingCapacity - person.getSize();
 			}
 		}
 		return remainingCapacity;
@@ -253,7 +252,7 @@ public class Lift {
 			int temp1 = destinations.get(x-1);
 			int temp2 = destinations.get(x);
 			if (temp1 == temp2){
-				lower.remove(x);
+				destinations.remove(x);
 				x = x - 1;
 			}
 		}
