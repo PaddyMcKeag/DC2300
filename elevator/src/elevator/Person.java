@@ -64,4 +64,8 @@ public abstract class Person {
 	public void setCurrentFloor(int currentFloor) {
 		this.currentFloor = currentFloor;
 	}
+	
+	public void changeDestination(double probability) {
+	//method stub so override can be done	
+	}
 }
