@@ -115,6 +115,7 @@ public class Controller {
 					person.changeDestination(changeFloorChance);
 				}
 			}
+			timer++;
 		}
 	}
 	
