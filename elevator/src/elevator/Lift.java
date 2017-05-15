@@ -12,7 +12,6 @@
 package elevator;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.LinkedHashMap;
 
@@ -24,7 +23,7 @@ public class Lift {
 	private boolean currentDirection;
 	
 	//Array containing the people in the elevator
-	private static LinkedHashMap<Person, Boolean> contains = contains = new LinkedHashMap<Person, Boolean>();
+	private static LinkedHashMap<Person, Boolean> contains = new LinkedHashMap<Person, Boolean>();
 	
 	//Array containing the floors that the people in the elevator want to go to
 	//This is static as when an elevator is called the name will not always be known to the person class
