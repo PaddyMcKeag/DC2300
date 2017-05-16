@@ -5,6 +5,7 @@ import java.util.Random;
 
 public class Controller {
 
+	private static SimulationGui simGui;
 	private static SetupGUI gui;
 	private static Lift lift;
 	private static ArrayList<Person> people;
@@ -34,8 +35,8 @@ public class Controller {
 	
 	private static void setUpGUI() {
 		gui = new SetupGUI();
-	
 		while(!gui.getModel().getRunFlag()) {
+			System.out.println("loop");
 		}
 		
 		runTime = gui.getModel().getRunTime();
@@ -47,6 +48,8 @@ public class Controller {
 		changeFloorChance = gui.getModel().getChangeFloorChance();
 		clientArrivalChance = gui.getModel().getClientArrivalChance();
 		seed = gui.getModel().getRandomSeed();
+		System.out.println("hi");
+		simGui = new SimulationGui(numberOfFloors,runTime);
 	}
 	
 	private static void setUpModel() {
@@ -107,7 +110,7 @@ public class Controller {
 		int timer = 0;
 		while(timer < runTime) {
 			lift.tick();
-			gui.tick();
+			//gui.tick();
 			addCrew();
 			addClient();
 			for (Person person : people) {

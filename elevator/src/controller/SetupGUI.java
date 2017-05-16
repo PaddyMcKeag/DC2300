@@ -32,10 +32,6 @@ public class SetupGUI{
 	}
 
 	public SetupGUI(){
-		createFrame();
-	}
-
-	private void createFrame(){
 		model = new SetupFoo();
 		frame = new JFrame("setup");
 		intro = new JLabel("Welcome to the elevator simulator, choose your simulation parameters.");
@@ -91,10 +87,14 @@ public class SetupGUI{
 		frame.add(clientArrivalSpinner);
 
 		frame.add(run);
-		//frame.add();
-
-
-		frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+		
+		//taken from lecture material
+		frame.addWindowListener(new WindowAdapter() {
+			public void windowClosing(WindowEvent e) {
+				exitApp();
+			}
+		});
+		
 		run.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ae) {
 				model.setRunTime(runTimeSlider.getValue());
@@ -107,11 +107,26 @@ public class SetupGUI{
 				model.setClientArrivalChance((double) clientArrivalSpinner.getValue());
 				model.setRunFlag(true);
 				System.out.print("Model is " + model);
+				frame.dispose();
 			}
 		});
 
 
 		frame.pack();
 		frame.setVisible(true);
+	}
+
+	
+	//taken from lecture material
+	private void exitApp(){
+		//display confirmation dialog before exiting
+		int response = JOptionPane.showConfirmDialog(
+				frame, "Do you also wish to terminate the program?","Terminate?",
+				JOptionPane.YES_NO_OPTION,
+				JOptionPane.QUESTION_MESSAGE);
+		if (response == JOptionPane.YES_OPTION){
+			System.exit(0);
+		}
+		//Don't quit
 	}
 }

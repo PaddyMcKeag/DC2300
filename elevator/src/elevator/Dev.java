@@ -8,8 +8,8 @@ public class Dev extends Worker {
 	//sets up the rand and determines starting destination
 	public Dev(int id, long seed, boolean company) {
 		super(id, seed);
-		this.currentDestination = rand.nextInt((Building.getNumberOfFloors() - 1) / 2) 
-				+ ((Building.getNumberOfFloors() / 2) + 1);  
+		this.currentDestination = rand.nextInt((((Building.getNumberOfFloors() - 1) * 10) / 2) 
+				+ ((Building.getNumberOfFloors() * 10) / 2) + 1) / 10;  
 		this.company = company;
 		this.call();
 	}
