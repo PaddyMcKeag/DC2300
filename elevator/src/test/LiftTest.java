@@ -8,50 +8,12 @@ import java.util.Arrays;
 import org.junit.Test;
 
 import elevator.Building;
+import elevator.Crew;
+import elevator.Dev;
 import elevator.Employee;
 import elevator.Lift;
 
 public class LiftTest {
-
-//	@Test
-//	public void test() {
-//		//Creates lift
-//		Lift lift = new Lift(6);
-//		//creates building
-//		Building building = new Building(8);
-//		//Creates employees
-//		Employee employee1 = new Employee(1, 1);
-//		Employee employee2 = new Employee(2, 2);
-//		Employee employee3 = new Employee(3, 3);
-//		Employee employee4 = new Employee(4, 4);
-//		Employee employee5 = new Employee(5, 5);
-//		Employee employee6 = new Employee(6, 6);
-//		Employee employee7 = new Employee(7, 7);
-//		Employee employee8 = new Employee(8, 8);
-//		Employee employee9 = new Employee(9, 9);
-//		//Changes employees current floor
-//		employee1.setCurrentFloor(1);
-//		employee2.setCurrentFloor(3);
-//		employee3.setCurrentFloor(5);
-//		employee4.setCurrentFloor(5);
-//		employee5.setCurrentFloor(5);
-//		employee6.setCurrentFloor(6);
-//		employee7.setCurrentFloor(2);
-//		employee8.setCurrentFloor(3);
-//		employee9.setCurrentFloor(1);
-//		//adds employees to the lift for destinations
-//		lift.addDestination(employee3);
-//		lift.addDestination(employee1);
-//		lift.addDestination(employee2);
-//		lift.addDestination(employee4);
-//		lift.addDestination(employee6);
-//		lift.addDestination(employee5);
-//		lift.addDestination(employee7);
-//		lift.addDestination(employee9);
-//		lift.addDestination(employee8);
-//		//Makes the lift process the destination array and order it correctly
-//		lift.tick();
-//	}
 	
 	@Test
 	public void testCreateALift(){
@@ -115,7 +77,7 @@ public class LiftTest {
 		lift.tick();
 		lift.tick();
 		lift.tick();
-		//Checks if lift has moved up a floor
+		//Checks if lift has moved down a floor
 		assertEquals(2, lift.getCurrentFloor());
 	}
 	
@@ -186,6 +148,40 @@ public class LiftTest {
 		lift.tick();
 		//check lift hasnt moved
 		assertEquals(0, lift.getCurrentFloor());
+	}
+	
+	@Test 
+	public void fillLift(){
+		//test the lift can not be over filled
+		//Create Lift
+		Lift lift = new Lift(8);
+		//Create persons to go into the lift
+		Crew crew1 = new Crew(1, 1);
+		Crew crew2 = new Crew(2, 1);
+		Dev dev1 = new Dev(3, 1, true);
+		Dev dev2 = new Dev(4, 1, true);
+		//Open lift doors
+		lift.tick();
+		//Let people into the lift
+		lift.tick();
+		//Check the lift is full
+		assertEquals(0, lift.remainingCapacity());
+	}
+	
+	@Test 
+	public void oppositeCompanies(){
+		//test the lift can not be over filled
+		//Create Lift
+		Lift lift = new Lift(8);
+		//Create persons to go into the lift
+		Dev dev1 = new Dev(1, 1, true);
+		Dev dev2 = new Dev(2, 1, false);
+		//Open lift doors
+		lift.tick();
+		//Let people into the lift
+		lift.tick();
+		//Check the lift is full
+		assertEquals(7, lift.remainingCapacity());
 	}
 
 }

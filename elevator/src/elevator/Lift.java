@@ -1,7 +1,17 @@
+/**
+ * The Lift class is a part of the program which functions as a lift.
+ * It contains the procedures for holding people in the lift,
+ * moving the lift up and down, checking the lift doors are open or closed
+ * and closing or opening them, and storing a list of destinations populated 
+ * from the people in the lift and those requesting the lift.
+ * 
+ * @author Grant Worsley
+ * @version 1.0
+ * @since 2017-05-09
+ */
 package elevator;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.LinkedHashMap;
 
@@ -13,7 +23,7 @@ public class Lift {
 	private boolean currentDirection;
 	
 	//Array containing the people in the elevator
-	private static LinkedHashMap<Person, Boolean> contains = contains = new LinkedHashMap<Person, Boolean>();
+	private static LinkedHashMap<Person, Boolean> contains = new LinkedHashMap<Person, Boolean>();
 	
 	//Array containing the floors that the people in the elevator want to go to
 	//This is static as when an elevator is called the name will not always be known to the person class
@@ -25,24 +35,46 @@ public class Lift {
 	//Lift doors open/close boolean open=true, closed=false
 	private boolean doorOpen;
 	
+	/**
+	 * This method is the constructor of this class.
+	 * It is used to define the variables frist set when
+	 * a lift is created.
+	 * @param capacity This parameter is used to set the lifts capacity
+	 */
 	public Lift(int capacity){
 		currentFloor = 0;
 		currentDirection = true;
 		destinations = new ArrayList<Integer>();
 		this.capacity = capacity;
 		doorOpen = false;
+		contains.clear();
+		destinations.clear();
 	}
 	
+	/**
+	 * This method is called to give the status of the lift door.
+	 * So anyone can know if the lift doors are open or closed.
+	 * @return This returns the boolean status of the lift door
+	 */
 	//returns status of the lift door
 	public boolean getDoorOpen(){
 		return doorOpen;
 	}
 	
+	/**
+	 * This method is called to give someone the placement of the lift.
+	 * @return This returns the int of the elevators current floor
+	 */
 	//Returns the lifts current floor
 	public int getCurrentFloor(){
 		return currentFloor;
 	}
 	
+	/**
+	 * This method is called to give someone the array of all the destinations the
+	 * elevator is going to.
+	 * @return This returns an array of destinations which are numbers
+	 */
 	//returns an array of the destinations
 	public ArrayList<Integer> getDestinations(){
 		return destinations;
@@ -80,16 +112,38 @@ public class Lift {
 		}
 	}
 	
+	/**
+	 * This method allows people to be added to the lift so you can track what people are
+	 * waiting for the lift and what people are in the lift, this is represented with the boolean
+	 * as it is always set to false for when people are waiting for the lift.
+	 * This information is used also to populate what destinations the lift
+	 * must go to.
+	 * @param person This is the person that is being added to the lift conatining list
+	 */
 	//Gets passed the person when they call the lift as to know who they are and where they want to go
 	public static void addDestination(Person person){
 		contains.put(person, false);
 	}
 	
+	/**
+	 * This method was used mainly for testing purposes. This allows
+	 * destinations to be added to the lift without people being created.
+	 * @param newDestination This allows destinations to be added to the lift
+	 */
 	//mainly for testing purposes, to add destinations without the need of a person 
 	public void addDestination(int newDestination){
 		destinations.add(newDestination);
 	}
 	
+	/**
+	 * This method represents one tick in the simulation, also known as 10 seconds.
+	 * It will update its destinations to know where it needs to go to next.
+	 * After it will pull the next destination and decide if it is above or below,
+	 * if it is not the current floor it will move one floor in the destinations direction.
+	 * If it is on the current floor it will open its doors, or let people in or out of the lift.
+	 * If the doors are open and its destinations is not the current floor it will close
+	 * the doors.
+	 */
 	//the function that will be run every tick where the elevator will decide its next move
 	public void tick(){
 		updateDestinations();
@@ -119,7 +173,7 @@ public class Lift {
 				//move down a floor
 				moveDown();
 			}
-		}else{
+		}else if (currentFloor > 0){
 			//moves back to the ground floor if no directions
 			currentDirection = false;
 			moveDown();
@@ -132,7 +186,7 @@ public class Lift {
 			boolean inLift = contains.get(person);
 			//if the person is in the lift and there destination is the current floor do...
 			if (inLift && person.currentDestination == currentFloor){
-				//remove from contains as theyre not waiting for a lift
+				//remove from contains as they are not waiting for a lift
 				contains.remove(person);
 				//change their current floor to represent where they are now
 				person.setCurrentFloor(currentFloor);
@@ -142,7 +196,7 @@ public class Lift {
 	
 	//Finds people who want to enter the lift
 	private void enterLift(){
-		//first checks for piority people
+		//first checks for priority people
 		for (Person person : contains.keySet()){
 			boolean inLift = contains.get(person);
 			if (!inLift && person.currentFloor == currentFloor && allowedToEnter(person) && person.getPriority()){
@@ -160,7 +214,7 @@ public class Lift {
 	
 	//checks if each person can enter when at the front of the queue
 	private boolean allowedToEnter(Person person){
-		if (remainingCapacity() >= person.size){
+		if (remainingCapacity() >= person.getSize()){
 			//checks for developers, as developers wont go in the lift with rivals
 			if (person instanceof Dev){
 				boolean sameDev = devCompare(person);
@@ -168,8 +222,9 @@ public class Lift {
 				if (sameDev){
 					return true;
 				}	
+			} else{
+				return true;
 			}
-			return true;
 		}
 		return false;	
 	}
@@ -180,13 +235,9 @@ public class Lift {
 			boolean inLift = contains.get(person);
 			if (inLift){
 				if (person instanceof Dev){
-					if(((Dev) developer).getCompany() == ((Dev) person).getCompany()){
-						//returns true if both people in lift and developer are same company
+					if(((Dev) developer).getCompany() != ((Dev) person).getCompany()){
+						//returns false if both people in lift and developer work for rival companies
 						//e.g. can both be in the lift at the same time
-						return true;
-					}else{
-						//returns false when a competitor is in the lift
-						//e.g. can not both be in the lift
 						return false;
 					}
 				}
@@ -197,12 +248,12 @@ public class Lift {
 	}
 	
 	//calculates capacity remaining by checking what people are in the lift
-	private int remainingCapacity(){
+	public int remainingCapacity(){
 		int remainingCapacity = capacity;
 		for (Person person : contains.keySet()){
 			boolean inLift = contains.get(person);
 			if (inLift){
-				capacity = capacity - person.size;
+				remainingCapacity = remainingCapacity - person.getSize();
 			}
 		}
 		return remainingCapacity;
@@ -253,7 +304,7 @@ public class Lift {
 			int temp1 = destinations.get(x-1);
 			int temp2 = destinations.get(x);
 			if (temp1 == temp2){
-				lower.remove(x);
+				destinations.remove(x);
 				x = x - 1;
 			}
 		}
