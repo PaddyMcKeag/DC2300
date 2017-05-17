@@ -115,7 +115,7 @@ public class Controller {
 			addClient();
 			for (Person person : people) {
 				if (person instanceof Worker) {
-					person.changeDestination(changeFloorChance);
+					((Worker) person).changeDestination(changeFloorChance);
 				}
 			}
 			timer++;

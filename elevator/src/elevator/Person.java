@@ -65,7 +65,7 @@ public abstract class Person {
 		this.currentFloor = currentFloor;
 	}
 	
-	public void changeDestination(double probability) {
-	//method stub so override can be done	
+	public int halfFloorFormula() {
+		return Building.getNumberOfFloors() / 2 + (Building.getNumberOfFloors() % 2 == 0 ? 0 : 1);
 	}
 }

@@ -15,8 +15,10 @@ public class Employee extends Worker {
 		if (!waiting) {
 			if (rand.nextDouble() < probability) {
 				this.currentDestination = rand.nextInt(Building.getNumberOfFloors());
+				if (this.currentDestination != this.currentFloor) {
+					this.call();
+				}
 			}
-			this.call();
 		}
 	}
 }
