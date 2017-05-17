@@ -261,6 +261,10 @@ public class Lift {
 					if(((Dev) developer).getCompany() != ((Dev) person).getCompany()){
 						//returns false if both people in lift and developer work for rival companies
 						//e.g. can both be in the lift at the same time
+						System.out.println(developer.getPersonId() 
+								+ " works for a different company than " + person.getPersonId()
+								+ " so won't get in the lift with them.");
+								
 						return false;
 					}
 				}

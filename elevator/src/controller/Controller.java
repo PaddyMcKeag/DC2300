@@ -140,6 +140,27 @@ public class Controller {
 	
 	private static void hometime() {
 		//when everyone's destination is their location, end
+		boolean emptyBuilding = false;
+		for (Person person : people) {
+			if (!lift.isInLift(person)) {
+				person.leave();
+			}
+		}
+		while(!emptyBuilding) {
+			emptyBuilding = true;
+			peopleTick();
+			lift.tick();
+			simGui.simTick(people, lift, runTime);
+			runTime++;
+			for (Person person : people) { 
+				if (!lift.isInLift(person)) {
+					person.leave();
+				}
+				if (person.getCurrentFloor() != 0) {
+					emptyBuilding = false;
+				}
+			}
+		}
 	}
 	
 	private static void endSim() {
