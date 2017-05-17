@@ -110,12 +110,19 @@ public class Controller {
 		int timer = 0;
 		while(timer < runTime) {
 			lift.tick();
-			simGui.simTick(people, lift);
+			simGui.simTick(people, lift, runTime);
 			addCrew();
 			addClient();
 			for (Person person : people) {
 				if (person instanceof Worker) {
 					person.changeDestination(changeFloorChance);
+				}
+				if (person instanceof Visitor) {
+					if (person.getCurrentDestination() == person.getCurrentFloor()) {
+						((Visitor) person).addToTimer();
+					} else if (person instanceof Client) {
+						((Client) person).countWaitTimer();
+					} 
 				}
 			}
 			timer++;
