@@ -21,4 +21,12 @@ public abstract class Worker extends Person {
 		super.setCurrentFloor(currentFloor);
 		waiting = false;
 	}
+	
+	public boolean getWaiting() {
+		return waiting;
+	}
+	
+	//stub for override
+	public void changeDestination(double probability) {
+	}
 }
