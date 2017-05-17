@@ -35,6 +35,8 @@ public abstract class Person {
 	protected void call() {
 		if (currentDestination != currentFloor) {
 			Lift.addDestination(this);
+			System.out.println(this.personId + " has called the lift to travel from " + 
+					this.currentFloor + " to " + this.currentDestination);
 		}
 	}
 	

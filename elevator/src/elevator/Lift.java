@@ -13,31 +13,32 @@ package elevator;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.LinkedHashMap;
 
 public class Lift {
 	//current floor that the elevator is on
 	private int currentFloor;
-	
+
 	//Direction is a boolean, with True meaning up and False meaning down
 	private boolean currentDirection;
-	
+
 	//Array containing the people in the elevator
 	private static LinkedHashMap<Person, Boolean> contains = new LinkedHashMap<Person, Boolean>();
-	
+
 	//Array containing the floors that the people in the elevator want to go to
 	//This is static as when an elevator is called the name will not always be known to the person class
 	private ArrayList<Integer> destinations;
-	
+
 	//Lifts capacity set by user
 	private int capacity;
-	
+
 	//Lift doors open/close boolean open=true, closed=false
 	private boolean doorOpen;
-	
+
 	//Total number of people transported
 	private int peopleTransported;
-	
+
 	/**
 	 * This method is the constructor of this class.
 	 * It is used to define the variables frist set when
@@ -54,7 +55,7 @@ public class Lift {
 		destinations.clear();
 		peopleTransported = 0;
 	}
-	
+
 	/**
 	 * This method is called to give the status of the lift door.
 	 * So anyone can know if the lift doors are open or closed.
@@ -64,7 +65,7 @@ public class Lift {
 	public boolean getDoorOpen(){
 		return doorOpen;
 	}
-	
+
 	/**
 	 * This method is called to give someone the placement of the lift.
 	 * @return This returns the int of the elevators current floor
@@ -73,7 +74,7 @@ public class Lift {
 	public int getCurrentFloor(){
 		return currentFloor;
 	}
-	
+
 	/**
 	 * This method is called to give someone the array of all the destinations the
 	 * elevator is going to.
@@ -83,15 +84,15 @@ public class Lift {
 	public ArrayList<Integer> getDestinations(){
 		return destinations;
 	}
-	
+
 	private void open(){
 		doorOpen = true;
 	}
-	
+
 	private void close(){
 		doorOpen = false;
 	}
-	
+
 	private void moveUp(){
 		if (doorOpen){
 			//door must be closed
@@ -103,7 +104,7 @@ public class Lift {
 			}
 		};
 	}
-	
+
 	private void moveDown(){
 		if (doorOpen){
 			//door must be closed
@@ -115,7 +116,7 @@ public class Lift {
 			}
 		}
 	}
-	
+
 	/**
 	 * This method allows people to be added to the lift so you can track what people are
 	 * waiting for the lift and what people are in the lift, this is represented with the boolean
@@ -128,7 +129,7 @@ public class Lift {
 	public static void addDestination(Person person){
 		contains.put(person, false);
 	}
-	
+
 	/**
 	 * This method was used mainly for testing purposes. This allows
 	 * destinations to be added to the lift without people being created.
@@ -138,7 +139,7 @@ public class Lift {
 	public void addDestination(int newDestination){
 		destinations.add(newDestination);
 	}
-	
+
 	/**
 	 * This method represents one tick in the simulation, also known as 10 seconds.
 	 * It will update its destinations to know where it needs to go to next.
@@ -157,16 +158,16 @@ public class Lift {
 			if (nextDestination == currentFloor){
 				if (doorOpen){
 					//let people on or off or close door, when door is closed destination must be deleted
-					
+
 					//Check for people whos destination is current floor then let them leave
 					leaveLift();
-					
+
 					//check for people to get into lift and checks they can enter then lets them enter
 					enterLift();
-					
+
 					//remove destination as everyone has left or entered
 					destinations.remove(0);
-					
+
 				}else{
 					open();
 				}
@@ -183,9 +184,10 @@ public class Lift {
 			moveDown();
 		}
 	}
-	
+
 	//Finds people who want to leave the lift
 	private void leaveLift(){
+		/*
 		for (Person person : contains.keySet()){
 			boolean inLift = contains.get(person);
 			//if the person is in the lift and there destination is the current floor do...
@@ -195,31 +197,39 @@ public class Lift {
 				//change their current floor to represent where they are now
 				person.setCurrentFloor(currentFloor);
 			}
+		} */
+		for (Iterator<Person> iterator = contains.keySet().iterator(); iterator.hasNext();) {
+			Person person = iterator.next();
+			if (this.isInLift(person) && person.currentDestination == this.currentFloor) {
+				iterator.remove();
+				person.setCurrentFloor(this.currentFloor);
+				System.out.println(person.personId + " has left the lift onto floor " + currentFloor);
+			}
 		}
 	}
-	
+
 	//Finds people who want to enter the lift
 	private void enterLift(){
-		if (contains.keySet().size() > 0) {
-			//first checks for priority people
-			for (Person person : contains.keySet()){
-				boolean inLift = contains.get(person);
-				if (!inLift && person.currentFloor == currentFloor && allowedToEnter(person) && person.getPriority()){
-					contains.put(person, true);
-					peopleTransported++;
-				}
+		//first checks for priority people
+		for (Person person : contains.keySet()){
+			boolean inLift = contains.get(person);
+			if (!inLift && person.currentFloor == currentFloor && allowedToEnter(person) && person.getPriority()){
+				contains.put(person, true);
+				peopleTransported++;
+				System.out.println(person.personId + " has entered the lift to travel to " + person.getCurrentDestination());
 			}
-			//then checks for other people
-			for (Person person : contains.keySet()){
-					boolean inLift = contains.get(person);
-				if (!inLift && person.currentFloor == currentFloor && allowedToEnter(person)){
-					contains.put(person, true);
-					peopleTransported++;
-				}
+		}
+		//then checks for other people
+		for (Person person : contains.keySet()){
+			boolean inLift = contains.get(person);
+			if (!inLift && person.currentFloor == currentFloor && allowedToEnter(person)){
+				contains.put(person, true);
+				peopleTransported++;
 			}
 		}
 	}
-	
+
+
 	//checks if each person can enter when at the front of the queue
 	private boolean allowedToEnter(Person person){
 		if (remainingCapacity() >= person.getSize()){
@@ -236,7 +246,7 @@ public class Lift {
 		}
 		return false;	
 	}
-	
+
 	//check for other developers and return their status
 	private boolean devCompare(Person developer){
 		for (Person person : contains.keySet()){
@@ -254,7 +264,7 @@ public class Lift {
 		//returns true when no other developers are in the lift too
 		return true;
 	}
-	
+
 	//calculates capacity remaining by checking what people are in the lift
 	public int remainingCapacity(){
 		int remainingCapacity = capacity;
@@ -266,12 +276,12 @@ public class Lift {
 		}
 		return remainingCapacity;
 	}
-	
+
 	//Populates an array of destinations 
 	private void updateDestinations(){
 		ArrayList<Integer> higher = new ArrayList<Integer>();
 		ArrayList<Integer> lower = new ArrayList<Integer>();
-		
+
 		//Get each person
 		for (Person person : contains.keySet()){
 			//check if they are in the lift, if they are add their destination, if not add their current floor
@@ -291,13 +301,13 @@ public class Lift {
 				}
 			}
 		}
-		
+
 		//Sort higher as increasing values
 		Collections.sort(higher);
-		
+
 		//Sort lower as decreasing values
 		Collections.sort(lower, Collections.reverseOrder());
-		
+
 		//add destinations to destinations arraylist dependent on movement direction
 		if (currentDirection){
 			higher.addAll(lower);
@@ -306,7 +316,7 @@ public class Lift {
 			lower.addAll(higher);
 			destinations.addAll(lower);
 		}
-		
+
 		//removes duplicate values from destinations array
 		for (int x = 1; x < destinations.size(); x++){
 			int temp1 = destinations.get(x-1);
@@ -316,7 +326,7 @@ public class Lift {
 				x = x - 1;
 			}
 		}
-		
+
 		//set lift direction
 		if (destinations.size() > 0){
 			if (destinations.get(0) > currentFloor){
@@ -332,11 +342,14 @@ public class Lift {
 			}
 		}
 	}
-	
+
 	public boolean isInLift(Person person) {
-		return contains.get(person);
+		if (contains.keySet().contains(person))
+			return contains.get(person);
+		else
+			return false;
 	}
-	
+
 	public int getPeopleTransported() {
 		return peopleTransported;
 	}

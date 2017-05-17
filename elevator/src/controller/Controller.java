@@ -25,6 +25,8 @@ public class Controller {
 	private static int currentPersonId;
 	private static long seed;
 	private static int totalWaitTime; 
+	private static int clientCount;
+	private static int crewCount;
 	
 	public static void main(String[] args) {
 		
@@ -85,6 +87,8 @@ public class Controller {
 		if (RAND.nextDouble() < crewArrivalChance) {
 			Crew crew = new Crew(currentPersonId, seed);
 			people.add(crew);
+			crewCount++;
+			System.out.println(crew.getPersonId() + ", a maintenance crew, have arrived.");
 			currentPersonId++;
 		}
 	}
@@ -93,6 +97,8 @@ public class Controller {
 		if (RAND.nextDouble() < clientArrivalChance) {
 			Client client = new Client(currentPersonId, seed);
 			people.add(client);
+			clientCount++;
+			System.out.println(client.getPersonId() + ", a client, has arrived.");
 			currentPersonId++;
 		}
 	}
@@ -112,11 +118,11 @@ public class Controller {
 	private static void startSim() {
 		int timer = 0;
 		while(timer < runTime) {
-			lift.tick();
-			simGui.simTick(people, lift, runTime);
 			addCrew();
 			addClient();
 			peopleTick();
+			lift.tick();
+			simGui.simTick(people, lift, runTime);
 			timer++;
 		}
 	}
@@ -157,6 +163,8 @@ public class Controller {
 		System.out.println("The chance for a maintenance crew to arrive = " + crewArrivalChance);
 		System.out.println("The seed used to generate random numbers = " + seed);
 		System.out.println("");
+		System.out.println("There were " + crewCount + " maintenance crews.");
+		System.out.println("There were " + clientCount + " clients.");
 		System.out.println("This resulted in " + building.getComplaints() + " complains from clients waiting too long.");
 		System.out.println("There were " + lift.getPeopleTransported() + " people transported.");
 		System.out.println("The average wait time was " + ((double)totalWaitTime / lift.getPeopleTransported()));
