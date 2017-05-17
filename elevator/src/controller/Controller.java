@@ -30,6 +30,8 @@ public class Controller {
 		setUpGUI();
 		setUpModel();
 		startSim();
+		hometime();
+		endSim();
 		
 	}
 	
@@ -110,16 +112,48 @@ public class Controller {
 		int timer = 0;
 		while(timer < runTime) {
 			lift.tick();
-			//gui.tick();
+			simGui.simTick(people, lift, runTime);
 			addCrew();
 			addClient();
-			for (Person person : people) {
-				if (person instanceof Worker) {
-					((Worker) person).changeDestination(changeFloorChance);
-				}
-			}
+			peopleTick();
 			timer++;
 		}
+	}
+	
+	private static void peopleTick() {
+		for (Person person : people) {
+			if (person.getCurrentDestination() == person.getCurrentFloor() && person instanceof Visitor) {
+				((Visitor) person).addToTimer();
+			} else if (person instanceof Worker) {
+				((Worker) person).changeDestination(changeFloorChance);
+			} 
+			if (person.getCurrentDestination() != person.getCurrentDestination() && !lift.isInLift(person)) {
+				person.countWaitTimer();
+			}
+		}
+	}
+	
+	private static void hometime() {
+		//when everyone's destination is their location, end
+	}
+	
+	private static void endSim() {
+		System.out.println("Simulation ended.");
+		System.out.println("The parameters were:");
+		System.out.println("Run time = " + runTime);
+		System.out.println("Number of floors = " + numberOfFloors);
+		System.out.println("Elevator capacity = " + elevatorCapacity);
+		System.out.println("Number of normal employees = " + numberOfEmployees);
+		System.out.println("Number of Goggle developers = " + numberOfGoggles);
+		System.out.println("Number of Mugtome developers = " + numberOfMugtome);
+		System.out.println("Probability for workers to change floors = " + changeFloorChance);
+		System.out.println("The chance for a client to arrive = " + clientArrivalChance);
+		System.out.println("The chance for a maintenance crew to arrive = " + crewArrivalChance);
+		System.out.println("The seed used to generate random numbers = " + seed);
+		System.out.println("");
+		System.out.println("This resulted in " + building.getComplaints() + " complains from clients waiting too long.");
+		System.out.println("There were " + lift.getPeopleTransported() + " people transported.");
+		System.out.println("The average wait time was ");
 	}
 	
 }

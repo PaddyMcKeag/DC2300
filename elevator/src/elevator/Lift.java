@@ -35,6 +35,9 @@ public class Lift {
 	//Lift doors open/close boolean open=true, closed=false
 	private boolean doorOpen;
 	
+	//Total number of people transported
+	private int peopleTransported;
+	
 	/**
 	 * This method is the constructor of this class.
 	 * It is used to define the variables frist set when
@@ -49,6 +52,7 @@ public class Lift {
 		doorOpen = false;
 		contains.clear();
 		destinations.clear();
+		peopleTransported = 0;
 	}
 	
 	/**
@@ -201,6 +205,7 @@ public class Lift {
 			boolean inLift = contains.get(person);
 			if (!inLift && person.currentFloor == currentFloor && allowedToEnter(person) && person.getPriority()){
 				contains.put(person, true);
+				peopleTransported++;
 			}
 		}
 		//then checks for other people
@@ -208,6 +213,7 @@ public class Lift {
 			boolean inLift = contains.get(person);
 			if (!inLift && person.currentFloor == currentFloor && allowedToEnter(person)){
 				contains.put(person, true);
+				peopleTransported++;
 			}
 		}
 	}
@@ -327,6 +333,10 @@ public class Lift {
 	
 	public boolean isInLift(Person person) {
 		return contains.get(person);
+	}
+	
+	public int getPeopleTransported() {
+		return peopleTransported;
 	}
 
 }

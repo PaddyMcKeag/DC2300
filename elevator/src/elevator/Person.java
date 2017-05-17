@@ -17,6 +17,8 @@ public abstract class Person {
 	protected boolean priority;		
 	//determines starting place, destination, and 
 	protected Random rand;	
+	//times how long they've been waiting until they leave
+	protected int waitTimer;
 	
 	
 	//constructs person with ID and destination
@@ -25,6 +27,7 @@ public abstract class Person {
 		currentFloor = 0;
 		size = 1;
 		priority = false;
+		waitTimer = 0;
 		rand = new Random(seed);
 	}
 	
@@ -63,9 +66,19 @@ public abstract class Person {
 	
 	public void setCurrentFloor(int currentFloor) {
 		this.currentFloor = currentFloor;
+		waitTimer = 0;
 	}
 	
 	public int halfFloorFormula() {
 		return Building.getNumberOfFloors() / 2 + (Building.getNumberOfFloors() % 2 == 0 ? 0 : 1);
 	}
+	
+	public void countWaitTimer() {
+		waitTimer++;
+	}
+	
+	public int getWaitTimer() {
+		return waitTimer;
+	}
+	
 }
