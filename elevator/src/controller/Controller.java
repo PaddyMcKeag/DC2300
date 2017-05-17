@@ -110,7 +110,7 @@ public class Controller {
 		int timer = 0;
 		while(timer < runTime) {
 			lift.tick();
-			//gui.tick();
+			simGui.simTick(people, lift);
 			addCrew();
 			addClient();
 			for (Person person : people) {
