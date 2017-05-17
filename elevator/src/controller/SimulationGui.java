@@ -23,8 +23,10 @@ public class SimulationGui {
 	private DefaultListModel<String> elevatorList;
 	private int currentTime;
 	private int runTime;
+	private int elevatorCapacity;
 	
 	public SimulationGui(int numberOfFloors, int runTime, int elevatorCapacity){
+		this.elevatorCapacity = elevatorCapacity;
 		this.runTime = runTime;
 		currentTime = 0;
 		building = new ArrayList<DefaultListModel<String>>();
@@ -47,7 +49,7 @@ public class SimulationGui {
 		}
 		
 		//adds floor names to model
-		populateFloorNames();
+		populateFloorNamesAndLift();
 		
 		System.out.println("about to add floors");
 		for(int i=building.size()-1; i>=0; i--){
@@ -84,6 +86,18 @@ public class SimulationGui {
 		simFrame.pack();
 		simFrame.setVisible(true);	}
 	
+	public void populateFloorNamesAndLift(Lift lift){
+		for (int i=0; i<building.size();i++){
+			if (i==0){
+				building.get(i).addElement("Ground Floor");
+			}else{
+				building.get(i).addElement("Floor " + i);
+			}
+		}
+		elevatorList.addElement("Elevator (capacity: " + elevatorCapacity + ") (location: floor " + lift.getCurrentFloor() + ")");
+			
+	}
+	
 	public void populateFloorNamesAndLift(){
 		for (int i=0; i<building.size();i++){
 			if (i==0){
@@ -92,7 +106,7 @@ public class SimulationGui {
 				building.get(i).addElement("Floor " + i);
 			}
 		}
-		
+		elevatorList.addElement("Elevator (capacity: " + elevatorCapacity + ") (location: " + "ground" + " floor)");
 			
 	}
 	
@@ -120,7 +134,7 @@ public class SimulationGui {
 			}
 			
 			//adds floor names to model
-			populateFloorNamesAndLift();
+			populateFloorNamesAndLift(lift);
 			
 			//populates floors and elevators
 			for (int i=0;i<people.size();i++){
