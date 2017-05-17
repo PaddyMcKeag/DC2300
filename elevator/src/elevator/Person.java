@@ -22,13 +22,13 @@ public abstract class Person {
 	
 	
 	//constructs person with ID and destination
-	public Person(int personId, long seed) {
+	public Person(int personId) {
 		this.personId = personId;
 		currentFloor = 0;
 		size = 1;
 		priority = false;
 		waitTimer = 0;
-		rand = new Random(seed);
+		rand = new Random();
 	}
 	
 	//calls the lift if the destination is wrong

@@ -13,7 +13,7 @@ public class EmployeeTest {
 	
 	@Before	
 	public void setUp() {
-		employee = new Employee(1, 1);
+		employee = new Employee(1);
 		building = new Building(8);
 	}
 	

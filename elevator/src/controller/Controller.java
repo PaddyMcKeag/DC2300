@@ -23,7 +23,6 @@ public class Controller {
 	private static double clientArrivalChance;
 	private static final double crewArrivalChance = 0.005;
 	private static int currentPersonId;
-	private static long seed;
 	private static int totalWaitTime; 
 	private static int clientCount;
 	private static int crewCount;
@@ -41,7 +40,7 @@ public class Controller {
 	private static void setUpGUI() {
 		gui = new SetupGUI();
 		while(!gui.getModel().getRunFlag()) {
-			System.out.println("loop");
+			System.out.print("");
 		}
 		
 		runTime = gui.getModel().getRunTime();
@@ -52,7 +51,6 @@ public class Controller {
 		numberOfMugtome = gui.getModel().getNumberOfMugtome();
 		changeFloorChance = gui.getModel().getChangeFloorChance();
 		clientArrivalChance = gui.getModel().getClientArrivalChance();
-		seed = gui.getModel().getRandomSeed();
 		System.out.println("hi");
 		simGui = new SimulationGui(numberOfFloors,runTime,elevatorCapacity);
 	}
@@ -65,19 +63,19 @@ public class Controller {
 		currentPersonId = 0;
 		
 		for (int i = 0; i < numberOfEmployees; i++) {
-			Employee employee = new Employee(currentPersonId, seed);
+			Employee employee = new Employee(currentPersonId);
 			people.add(employee);
 			currentPersonId++;
 		}
 		
 		for (int i = 0; i < numberOfGoggles; i++) {
-			Dev dev = new Dev(currentPersonId++, seed, false);
+			Dev dev = new Dev(currentPersonId, false);
 			people.add(dev);
 			currentPersonId++;
 		}
 		
 		for (int i = 0; i < numberOfMugtome; i++) {
-			Dev dev = new Dev(currentPersonId++, seed, true);
+			Dev dev = new Dev(currentPersonId, true);
 			people.add(dev);
 			currentPersonId++;
 		}
@@ -85,7 +83,7 @@ public class Controller {
 	
 	private static void addCrew() {
 		if (RAND.nextDouble() < crewArrivalChance) {
-			Crew crew = new Crew(currentPersonId, seed);
+			Crew crew = new Crew(currentPersonId);
 			people.add(crew);
 			crewCount++;
 			System.out.println(crew.getPersonId() + ", a maintenance crew, have arrived.");
@@ -95,10 +93,10 @@ public class Controller {
 	
 	private static void addClient() {
 		if (RAND.nextDouble() < clientArrivalChance) {
-			Client client = new Client(currentPersonId, seed);
+			Client client = new Client(currentPersonId);
 			people.add(client);
 			clientCount++;
-			System.out.println(client.getPersonId() + ", a client, has arrived.");
+			System.out.println(client.getPersonId() + ", a client, has arrived with destination" + client.getCurrentDestination());
 			currentPersonId++;
 		}
 	}
@@ -161,12 +159,12 @@ public class Controller {
 		System.out.println("Probability for workers to change floors = " + changeFloorChance);
 		System.out.println("The chance for a client to arrive = " + clientArrivalChance);
 		System.out.println("The chance for a maintenance crew to arrive = " + crewArrivalChance);
-		System.out.println("The seed used to generate random numbers = " + seed);
 		System.out.println("");
 		System.out.println("There were " + crewCount + " maintenance crews.");
 		System.out.println("There were " + clientCount + " clients.");
 		System.out.println("This resulted in " + building.getComplaints() + " complains from clients waiting too long.");
 		System.out.println("There were " + lift.getPeopleTransported() + " people transported.");
+		System.out.println("The total wait time was " + totalWaitTime);
 		System.out.println("The average wait time was " + ((double)totalWaitTime / lift.getPeopleTransported()));
 	}
 	

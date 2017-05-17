@@ -87,10 +87,12 @@ public class Lift {
 
 	private void open(){
 		doorOpen = true;
+		System.out.println("The lift has opened its doors on " + this.currentFloor);
 	}
 
 	private void close(){
 		doorOpen = false;
+		System.out.println("The lift has closed its doors on " + this.currentFloor);
 	}
 
 	private void moveUp(){
@@ -101,6 +103,7 @@ public class Lift {
 			//must not be trying to go above the limit of the building
 			if (currentFloor < Building.getNumberOfFloors()){
 				currentFloor = currentFloor + 1;
+				System.out.println("The lift has moved up to floor " + currentFloor);
 			}
 		};
 	}
@@ -113,6 +116,7 @@ public class Lift {
 			//must not be trying to go below the building
 			if (currentFloor > 0){
 				currentFloor = currentFloor - 1;
+				System.out.println("The lift has moved down to floor " + currentFloor);
 			}
 		}
 	}
@@ -225,6 +229,7 @@ public class Lift {
 			if (!inLift && person.currentFloor == currentFloor && allowedToEnter(person)){
 				contains.put(person, true);
 				peopleTransported++;
+				System.out.println(person.personId + " has entered the lift to travel to " + person.getCurrentDestination());
 			}
 		}
 	}

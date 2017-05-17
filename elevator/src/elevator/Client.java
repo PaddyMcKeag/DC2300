@@ -2,8 +2,8 @@ package elevator;
 
 public class Client extends Visitor {
 	
-	public Client(int personId, long seed) {
-		super(personId, seed);
+	public Client(int personId) {
+		super(personId);
 		this.priority = true;
 		this.timeToLeave = (rand.nextInt(20) + 10) * 6;
 		this.currentDestination = rand.nextInt(this.halfFloorFormula());

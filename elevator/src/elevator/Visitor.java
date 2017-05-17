@@ -7,8 +7,8 @@ public abstract class Visitor extends Person {
 	//stores the time until the visitor leaves
 	protected int timeToLeave;
 	
-	public Visitor(int personId, long seed) {
-		super(personId, seed);
+	public Visitor(int personId) {
+		super(personId);
 		timeInBuilding = 0;
 	}
 	

@@ -6,8 +6,8 @@ public class Dev extends Worker {
 	private boolean company;
 	
 	//sets up the rand and determines starting destination
-	public Dev(int id, long seed, boolean company) {
-		super(id, seed);
+	public Dev(int id, boolean company) {
+		super(id);
 		this.currentDestination = rand.nextInt(this.halfFloorFormula()) + this.halfFloorFormula();
 		this.company = company;
 		this.call();

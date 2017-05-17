@@ -3,8 +3,8 @@ package elevator;
 public class Employee extends Worker {
 
 	//sets up the rand and sets start location
-	public Employee(int personId, long seed) {
-		super(personId, seed);
+	public Employee(int personId) {
+		super(personId);
 		this.currentDestination = rand.nextInt(Building.getNumberOfFloors() - 1) + 1;
 		this.call();
 	}
