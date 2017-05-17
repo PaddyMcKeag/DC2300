@@ -14,12 +14,12 @@ public class Client extends Visitor {
 		this.call();
 	}
 	
-	public void resetWaitTimer() {
+	private void resetWaitTimer() {
 		waitTimer = 0;
 	}
 	
 	public int countWaitTimer() {
-		if (!(waitTimer > 600)) {
+		if (!(waitTimer == 600)) {
 			waitTimer++;
 		}
 		else {
@@ -31,6 +31,11 @@ public class Client extends Visitor {
 	
 	public void complain() {
 		Building.addComplaint();
+	}
+	
+	public void setCurrentFloor(int currentFloor){
+		super.setCurrentFloor(currentFloor);
+		resetWaitTimer();
 	}
 	
 }
