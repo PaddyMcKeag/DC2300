@@ -200,20 +200,22 @@ public class Lift {
 	
 	//Finds people who want to enter the lift
 	private void enterLift(){
-		//first checks for priority people
-		for (Person person : contains.keySet()){
-			boolean inLift = contains.get(person);
-			if (!inLift && person.currentFloor == currentFloor && allowedToEnter(person) && person.getPriority()){
-				contains.put(person, true);
-				peopleTransported++;
+		if (contains.keySet().size() > 0) {
+			//first checks for priority people
+			for (Person person : contains.keySet()){
+				boolean inLift = contains.get(person);
+				if (!inLift && person.currentFloor == currentFloor && allowedToEnter(person) && person.getPriority()){
+					contains.put(person, true);
+					peopleTransported++;
+				}
 			}
-		}
-		//then checks for other people
-		for (Person person : contains.keySet()){
-			boolean inLift = contains.get(person);
-			if (!inLift && person.currentFloor == currentFloor && allowedToEnter(person)){
-				contains.put(person, true);
-				peopleTransported++;
+			//then checks for other people
+			for (Person person : contains.keySet()){
+					boolean inLift = contains.get(person);
+				if (!inLift && person.currentFloor == currentFloor && allowedToEnter(person)){
+					contains.put(person, true);
+					peopleTransported++;
+				}
 			}
 		}
 	}
