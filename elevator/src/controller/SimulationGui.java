@@ -84,7 +84,7 @@ public class SimulationGui {
 		simFrame.pack();
 		simFrame.setVisible(true);	}
 	
-	public void populateFloorNames(){
+	public void populateFloorNamesAndLift(){
 		for (int i=0; i<building.size();i++){
 			if (i==0){
 				building.get(i).addElement("Ground Floor");
@@ -92,6 +92,7 @@ public class SimulationGui {
 				building.get(i).addElement("Floor " + i);
 			}
 		}
+		
 			
 	}
 	
@@ -119,7 +120,7 @@ public class SimulationGui {
 			}
 			
 			//adds floor names to model
-			populateFloorNames();
+			populateFloorNamesAndLift();
 			
 			//populates floors and elevators
 			for (int i=0;i<people.size();i++){
