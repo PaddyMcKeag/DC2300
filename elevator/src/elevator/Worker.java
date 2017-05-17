@@ -6,8 +6,8 @@ public abstract class Worker extends Person {
 	protected boolean waiting;
 
 	//constructs person with ID and destination
-	public Worker(int personId) {
-		super(personId);
+	public Worker(int personId, long seed) {
+		super(personId, seed);
 		waiting = false;
 	}
 	

@@ -7,7 +7,7 @@ package elevator;
 public class Building {
 
 	public static int complaints;	
-	public static int numberOfFloors;
+	public static int numberOfFloors = 5;
 	
 	public Building(int numberOfFloors) {
 		Building.numberOfFloors = numberOfFloors;
@@ -21,4 +21,7 @@ public class Building {
 		complaints++;
 	}
 	
+	public int getComplaints() {
+		return complaints;
+	}
 }

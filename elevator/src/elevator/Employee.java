@@ -3,9 +3,9 @@ package elevator;
 public class Employee extends Worker {
 
 	//sets up the rand and sets start location
-	public Employee(int personId) {
-		super(personId);
-		this.currentDestination = RAND.nextInt(Building.getNumberOfFloors() - 1) + 1;
+	public Employee(int personId, long seed) {
+		super(personId, seed);
+		this.currentDestination = rand.nextInt(Building.getNumberOfFloors() - 1) + 1;
 		this.call();
 	}
 
@@ -13,8 +13,8 @@ public class Employee extends Worker {
 	//cannot change their mind while waiting
 	public void changeDestination(double probability) {
 		if (!waiting) {
-			if (RAND.nextDouble() < probability) {
-				this.currentDestination = RAND.nextInt(Building.getNumberOfFloors());
+			if (rand.nextDouble() < probability) {
+				this.currentDestination = rand.nextInt(Building.getNumberOfFloors());
 			}
 			this.call();
 		}
