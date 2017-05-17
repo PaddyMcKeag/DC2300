@@ -49,7 +49,8 @@ public class Controller {
 		clientArrivalChance = gui.getModel().getClientArrivalChance();
 		seed = gui.getModel().getRandomSeed();
 		System.out.println("hi");
-		simGui = new SimulationGui(numberOfFloors,runTime);
+		simGui = new SimulationGui(numberOfFloors,runTime,elevatorCapacity);
+		
 	}
 	
 	private static void setUpModel() {

@@ -36,7 +36,7 @@ public class SetupGUI{
 		frame = new JFrame("setup");
 		intro = new JLabel("Welcome to the elevator simulator, choose your simulation parameters.");
 		placeholder = new JLabel("");
-		floorSlider = new LabelledSlider("Number of floors: ", 1, 10, 1);
+		floorSlider = new LabelledSlider("Number of floors: ", 2, 10, 2);
 		elevatorCapacitySlider = new LabelledSlider("Elevator capacity: ", 4, 20, 4);
 		runTimeSlider = new LabelledSlider("Select simulation run time in ticks (1 tick = 10 seconds): ", 300, 3000, 300);
 		employeeSlider = new LabelledSlider("Number of employees: ", 0, 50, 0);

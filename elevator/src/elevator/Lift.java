@@ -324,5 +324,9 @@ public class Lift {
 			}
 		}
 	}
+	
+	public boolean isInLift(Person person) {
+		return contains.get(person);
+	}
 
 }
