@@ -24,6 +24,7 @@ public class Controller {
 	private static final double crewArrivalChance = 0.005;
 	private static int currentPersonId;
 	private static long seed;
+	private static int totalWaitTime; 
 	
 	public static void main(String[] args) {
 		
@@ -138,6 +139,11 @@ public class Controller {
 	}
 	
 	private static void endSim() {
+		totalWaitTime = 0;
+		for (Person person : people) {
+			totalWaitTime += person.getWaitTimer();
+		}
+		
 		System.out.println("Simulation ended.");
 		System.out.println("The parameters were:");
 		System.out.println("Run time = " + runTime);
@@ -153,7 +159,7 @@ public class Controller {
 		System.out.println("");
 		System.out.println("This resulted in " + building.getComplaints() + " complains from clients waiting too long.");
 		System.out.println("There were " + lift.getPeopleTransported() + " people transported.");
-		System.out.println("The average wait time was ");
+		System.out.println("The average wait time was " + ((double)totalWaitTime / lift.getPeopleTransported()));
 	}
 	
 }
