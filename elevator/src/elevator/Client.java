@@ -1,9 +1,10 @@
 package elevator;
+import java.util.Random;
 
 public class Client extends Visitor {
 	
-	public Client(int personId) {
-		super(personId);
+	public Client(int personId, Random rand) {
+		super(personId, rand);
 		this.priority = true;
 		this.timeToLeave = (rand.nextInt(20) + 10) * 6;
 		this.currentDestination = rand.nextInt(this.halfFloorFormula());

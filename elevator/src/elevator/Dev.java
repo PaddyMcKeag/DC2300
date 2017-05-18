@@ -1,4 +1,5 @@
 package elevator;
+import java.util.Random; 
 
 public class Dev extends Worker {
 
@@ -6,8 +7,8 @@ public class Dev extends Worker {
 	private boolean company;
 	
 	//sets up the rand and determines starting destination
-	public Dev(int id, boolean company) {
-		super(id);
+	public Dev(int id, Random rand, boolean company) {
+		super(id, rand);
 		this.currentDestination = rand.nextInt(this.halfFloorFormula()) + this.halfFloorFormula();
 		this.company = company;
 		this.call();

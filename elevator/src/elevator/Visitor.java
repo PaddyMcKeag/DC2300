@@ -1,4 +1,5 @@
 package elevator;
+import java.util.Random;
 
 public abstract class Visitor extends Person {
 	
@@ -7,8 +8,8 @@ public abstract class Visitor extends Person {
 	//stores the time until the visitor leaves
 	protected int timeToLeave;
 	
-	public Visitor(int personId) {
-		super(personId);
+	public Visitor(int personId, Random rand) {
+		super(personId, rand);
 		timeInBuilding = 0;
 	}
 	

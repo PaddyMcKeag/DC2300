@@ -12,6 +12,7 @@ import elevator.Crew;
 import elevator.Dev;
 import elevator.Employee;
 import elevator.Lift;
+import java.util.Random;
 
 public class LiftTest {
 	
@@ -154,12 +155,13 @@ public class LiftTest {
 	public void fillLift(){
 		//test the lift can not be over filled
 		//Create Lift
+		Random rand = new Random(); 
 		Lift lift = new Lift(8);
 		//Create persons to go into the lift
-		Crew crew1 = new Crew(1);
-		Crew crew2 = new Crew(2);
-		Dev dev1 = new Dev(3, true);
-		Dev dev2 = new Dev(4, true);
+		Crew crew1 = new Crew(1, rand);
+		Crew crew2 = new Crew(2, rand);
+		Dev dev1 = new Dev(3, rand, true);
+		Dev dev2 = new Dev(4, rand, true);
 		//Open lift doors
 		lift.tick();
 		//Let people into the lift
@@ -173,9 +175,10 @@ public class LiftTest {
 		//test the lift can not be over filled
 		//Create Lift
 		Lift lift = new Lift(8);
+		Random rand = new Random();
 		//Create persons to go into the lift
-		Dev dev1 = new Dev(1, true);
-		Dev dev2 = new Dev(2, false);
+		Dev dev1 = new Dev(1, rand, true);
+		Dev dev2 = new Dev(2, rand, false);
 		//Open lift doors
 		lift.tick();
 		//Let people into the lift

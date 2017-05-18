@@ -1,6 +1,7 @@
 package test;
 
 import static org.junit.Assert.*;
+import java.util.Random;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -11,12 +12,14 @@ import elevator.Crew;
 public class CrewTest {
 
 	private Crew crew;
+	private Random rand;
 	private Building building;
 	
 	@Before	
 	public void setUp() {
+		rand = new Random();
 		building = new Building(8);
-		crew = new Crew(1);
+		crew = new Crew(1, rand);
 	}
 	
 	@Test

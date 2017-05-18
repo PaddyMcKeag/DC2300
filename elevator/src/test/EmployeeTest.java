@@ -5,15 +5,18 @@ import org.junit.Before;
 import org.junit.Test;
 import elevator.Employee;
 import elevator.Building;
+import java.util.Random;
 
 public class EmployeeTest {
 
 	private Employee employee;
 	private Building building;
+	private Random rand;
 	
 	@Before	
 	public void setUp() {
-		employee = new Employee(1);
+		Random rand = new Random();
+		employee = new Employee(1, rand);
 		building = new Building(8);
 	}
 	
@@ -36,7 +39,10 @@ public class EmployeeTest {
 		employee.setCurrentFloor(employee.getCurrentDestination());
 		employee.changeDestination(1.0);	
 		int secondDestination = employee.getCurrentDestination();
-		assertNotEquals(firstDestination, secondDestination);
+		if (employee.getCurrentDestination() != employee.getCurrentFloor()) 
+			assertNotEquals(firstDestination, secondDestination);
+		else
+			assertEquals(firstDestination, secondDestination);
 	}
 	
 	@Test 
@@ -45,7 +51,10 @@ public class EmployeeTest {
 		employee.setCurrentFloor(employee.getCurrentDestination());
 		assertFalse(employee.getWaiting());
 		employee.changeDestination(1.0);
-		assertTrue(employee.getWaiting());
+		if (employee.getCurrentDestination() != employee.getCurrentFloor()) {
+			assertTrue(employee.getWaiting());
+		} else
+			assertFalse(employee.getWaiting());
 	}
 	
 	@Test

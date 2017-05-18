@@ -7,22 +7,24 @@ import org.junit.Test;
 
 import elevator.Building;
 import elevator.Dev;
+import java.util.Random;
 
 public class DevTest {
 
+	private Random rand;
 	private Dev dev;
 	private Building building;
 	
 	@Before	
 	public void setUp() {
-		dev = new Dev(1, false);
-		building = new Building(3);
+		rand = new Random();
+		building = new Building(6);
+		dev = new Dev(1, rand, false);
 	}
 	
 	@Test
 	public void constructorTest() {
 		assertNotNull(dev);		
-		System.out.println(dev.getCurrentDestination());
 		assertFalse(dev.getCurrentDestination() < dev.halfFloorFormula() ||
 				dev.getCurrentDestination() > Building.getNumberOfFloors());
 	}
@@ -41,7 +43,10 @@ public class DevTest {
 		dev.setCurrentFloor(dev.getCurrentDestination());
 		dev.changeDestination(1.0);	
 		int secondDestination = dev.getCurrentDestination();
-		assertNotEquals(firstDestination, secondDestination);
+		if (dev.getWaiting()) {
+			assertNotEquals(firstDestination, secondDestination);
+		} else
+			assertEquals(firstDestination, secondDestination);
 	}
 	
 	@Test 
@@ -50,7 +55,11 @@ public class DevTest {
 		dev.setCurrentFloor(dev.getCurrentDestination());
 		assertFalse(dev.getWaiting());
 		dev.changeDestination(1.0);
-		assertTrue(dev.getWaiting());
+		if (dev.getCurrentDestination() != dev.getCurrentFloor()) {
+			assertTrue(dev.getWaiting());
+		} 
+		else 
+			assertFalse(dev.getWaiting());
 	}
 	
 	@Test

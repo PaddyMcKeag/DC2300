@@ -11,7 +11,7 @@ public class Controller {
 	private static ArrayList<Person> people;
 	private static Building building;
 	
-	private static final Random RAND = new Random();
+	private static Random rand;
 	
 	private static int runTime;
 	private static int numberOfFloors;
@@ -26,6 +26,7 @@ public class Controller {
 	private static int totalWaitTime; 
 	private static int clientCount;
 	private static int crewCount;
+	private static long seed;
 	
 	public static void main(String[] args) {
 		
@@ -51,6 +52,8 @@ public class Controller {
 		numberOfMugtome = gui.getModel().getNumberOfMugtome();
 		changeFloorChance = gui.getModel().getChangeFloorChance();
 		clientArrivalChance = gui.getModel().getClientArrivalChance();
+		seed = (gui.getModel().getRandomSeed());
+		rand = new Random(seed);
 		System.out.println("hi");
 		simGui = new SimulationGui(numberOfFloors,runTime,elevatorCapacity);
 	}
@@ -63,27 +66,27 @@ public class Controller {
 		currentPersonId = 0;
 		
 		for (int i = 0; i < numberOfEmployees; i++) {
-			Employee employee = new Employee(currentPersonId);
+			Employee employee = new Employee(currentPersonId, rand);
 			people.add(employee);
 			currentPersonId++;
 		}
 		
 		for (int i = 0; i < numberOfGoggles; i++) {
-			Dev dev = new Dev(currentPersonId, false);
+			Dev dev = new Dev(currentPersonId, rand, false);
 			people.add(dev);
 			currentPersonId++;
 		}
 		
 		for (int i = 0; i < numberOfMugtome; i++) {
-			Dev dev = new Dev(currentPersonId, true);
+			Dev dev = new Dev(currentPersonId, rand, true);
 			people.add(dev);
 			currentPersonId++;
 		}
 	}
 	
 	private static void addCrew() {
-		if (RAND.nextDouble() < crewArrivalChance) {
-			Crew crew = new Crew(currentPersonId);
+		if (rand.nextDouble() < crewArrivalChance) {
+			Crew crew = new Crew(currentPersonId, rand);
 			people.add(crew);
 			crewCount++;
 			System.out.println(crew.getPersonId() + ", a maintenance crew, have arrived.");
@@ -92,8 +95,8 @@ public class Controller {
 	}
 	
 	private static void addClient() {
-		if (RAND.nextDouble() < clientArrivalChance) {
-			Client client = new Client(currentPersonId);
+		if (rand.nextDouble() < clientArrivalChance) {
+			Client client = new Client(currentPersonId, rand);
 			people.add(client);
 			clientCount++;
 			System.out.println(client.getPersonId() + ", a client, has arrived with destination" + client.getCurrentDestination());

@@ -7,15 +7,18 @@ import org.junit.Test;
 
 import elevator.Building;
 import elevator.Client;
+import java.util.Random;
 
 public class ClientTest {
 
 	private Client client;
 	private Building building;
+	private Random rand;
 	
 	@Before	
 	public void setUp() {
-		client = new Client(1);
+		rand = new Random();
+		client = new Client(1, rand);
 		building = new Building(8);
 	}
 	

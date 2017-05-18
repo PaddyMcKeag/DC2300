@@ -1,7 +1,7 @@
 package elevator;
 
 //the Building class contains a couple of miscellaneous fields
-//it's the most intuitive place to store complains for the simulation
+//it's the most intuitive place to store complaints for the simulation
 //the number of floors is static to make it easy to access, but the building
 //should be constructed before the get method is ever called
 public class Building {
