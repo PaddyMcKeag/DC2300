@@ -15,7 +15,7 @@ public class DevTest {
 	
 	@Before	
 	public void setUp() {
-		dev = new Dev(1, 1, false);
+		dev = new Dev(1, false);
 		building = new Building(3);
 	}
 	

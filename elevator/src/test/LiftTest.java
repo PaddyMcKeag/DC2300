@@ -156,10 +156,10 @@ public class LiftTest {
 		//Create Lift
 		Lift lift = new Lift(8);
 		//Create persons to go into the lift
-		Crew crew1 = new Crew(1, 1);
-		Crew crew2 = new Crew(2, 1);
-		Dev dev1 = new Dev(3, 1, true);
-		Dev dev2 = new Dev(4, 1, true);
+		Crew crew1 = new Crew(1);
+		Crew crew2 = new Crew(2);
+		Dev dev1 = new Dev(3, true);
+		Dev dev2 = new Dev(4, true);
 		//Open lift doors
 		lift.tick();
 		//Let people into the lift
@@ -174,8 +174,8 @@ public class LiftTest {
 		//Create Lift
 		Lift lift = new Lift(8);
 		//Create persons to go into the lift
-		Dev dev1 = new Dev(1, 1, true);
-		Dev dev2 = new Dev(2, 1, false);
+		Dev dev1 = new Dev(1, true);
+		Dev dev2 = new Dev(2, false);
 		//Open lift doors
 		lift.tick();
 		//Let people into the lift

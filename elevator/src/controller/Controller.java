@@ -140,6 +140,7 @@ public class Controller {
 	
 	private static void hometime() {
 		//when everyone's destination is their location, end
+		System.out.println("The work day has ended.");
 		boolean emptyBuilding = false;
 		for (Person person : people) {
 			if (!lift.isInLift(person)) {
@@ -148,12 +149,13 @@ public class Controller {
 		}
 		while(!emptyBuilding) {
 			emptyBuilding = true;
+			changeFloorChance = 0.0;
 			peopleTick();
 			lift.tick();
 			simGui.simTick(people, lift, runTime);
 			runTime++;
 			for (Person person : people) { 
-				if (!lift.isInLift(person)) {
+				if (!lift.isInLift(person) && person.getCurrentDestination() != 0) {
 					person.leave();
 				}
 				if (person.getCurrentFloor() != 0) {

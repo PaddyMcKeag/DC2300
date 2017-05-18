@@ -20,4 +20,9 @@ public abstract class Visitor extends Person {
 			this.leave();
 		return timeInBuilding;
 	}
+	
+	public int getTimeToLeave() { 
+		return timeToLeave;
+	}
+	
 }
