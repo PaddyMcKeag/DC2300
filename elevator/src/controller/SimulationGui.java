@@ -56,7 +56,7 @@ public class SimulationGui {
 			floor.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
 			floor.setSelectedIndex(0);
 			floor.setVisibleRowCount(3); 
-
+			//add to floor list and then add
 			floors.add(floor);
 			simFrame.add(new JScrollPane(floor));
 			if(i==building.size()-1){
@@ -77,11 +77,13 @@ public class SimulationGui {
 				exitApp();
 			}
 		});
-
+		
+		//display the gui
 		simFrame.setLayout(new GridLayout(numberOfFloors, 2));
 		simFrame.pack();
 		simFrame.setVisible(true);	}
-
+	
+	//adds floor names to model for setup 
 	public void populateFloorNamesAndLift(Lift lift){
 		for (int i=0; i<building.size();i++){
 			if (i==0){
