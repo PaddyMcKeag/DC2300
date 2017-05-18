@@ -36,7 +36,7 @@ public class SetupGUI{
 		frame = new JFrame("setup");
 		intro = new JLabel("Welcome to the elevator simulator, choose your simulation parameters.");
 		placeholder = new JLabel("");
-		floorSlider = new LabelledSlider("Number of floors: ", 2, 10, 2);
+		floorSlider = new LabelledSlider("Number of floors: ", 2, 15, 2);
 		elevatorCapacitySlider = new LabelledSlider("Elevator capacity: ", 4, 20, 4);
 		runTimeSlider = new LabelledSlider("Select simulation run time in ticks (1 tick = 10 seconds): ", 300, 3000, 300);
 		employeeSlider = new LabelledSlider("Number of employees: ", 0, 50, 0);
@@ -47,18 +47,15 @@ public class SetupGUI{
 		changeFloorSpinner = new JSpinner(changeFloorModel);
 		SpinnerNumberModel clientArrivalModel = new SpinnerNumberModel(0.001, 0.000, 1, 0.001);
 		clientArrivalSpinner = new JSpinner(clientArrivalModel);
-		
 		run = new JButton("Run");
 
 		// Set properties
-		
 		JSpinner.NumberEditor changeFloorEditor = (JSpinner.NumberEditor)changeFloorSpinner.getEditor();
 		changeFloorEditor.getTextField().setHorizontalAlignment(SwingConstants.CENTER);
 		changeFloorEditor.getTextField().setHorizontalAlignment(SwingConstants.CENTER);
 		changeFloorEditor.setBorder(new CompoundBorder(new TitledBorder(new EmptyBorder(0,
 				0, 0, 0), "Select the chance of an employee changing floor per tick"), changeFloorEditor.getBorder()));
 
-		
 		JSpinner.NumberEditor clientArrivalEditor = (JSpinner.NumberEditor)clientArrivalSpinner.getEditor();
 		clientArrivalEditor.getTextField().setHorizontalAlignment(SwingConstants.CENTER);
 		clientArrivalEditor.setBorder(new CompoundBorder(new TitledBorder(new EmptyBorder(0,
@@ -85,7 +82,6 @@ public class SetupGUI{
 		frame.add(randomSeedSlider);
 		frame.add(changeFloorSpinner);
 		frame.add(clientArrivalSpinner);
-
 		frame.add(run);
 		
 		//taken from lecture material
@@ -95,6 +91,7 @@ public class SetupGUI{
 			}
 		});
 		
+		//update model from values of gui elements when the run button is clicked
 		run.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ae) {
 				model.setRunTime(runTimeSlider.getValue());
