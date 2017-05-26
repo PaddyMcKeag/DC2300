@@ -186,5 +186,56 @@ public class LiftTest {
 		//Check the lift is full
 		assertEquals(7, lift.remainingCapacity());
 	}
+	
+	//In this test two people get into the lift, and one exits and one stays in
+	//This test verifies this by checking the list of destinations and if the lift contains the person or not
+	@Test
+	public void getOutOfLift(){
+		//test the lift can not be over filled
+		//Create Lift
+		Lift lift = new Lift(8);
+		Random rand = new Random();
+		//Create persons to go into the lift
+		Dev dev1 = new Dev(1, rand, true);
+		Dev dev2 = new Dev(2, rand, true);
+		//expected array value
+		ArrayList<Integer> expected = new ArrayList<Integer>();
+		//Open lift
+		lift.tick();
+		//Let people in
+		lift.tick();
+		//Close lift
+		lift.tick();
+		//Move to floor
+		if (dev1.getCurrentDestination() < dev2.getCurrentDestination()){
+			for (int x = 1; x < dev1.getCurrentDestination(); x++){
+				lift.tick();
+			}
+			lift.tick();
+			//Open lift
+			lift.tick();
+			//Let people out
+			lift.tick();
+			assertEquals(lift.getCurrentFloor(), dev1.getCurrentDestination());
+			assertEquals(false, lift.isInLift(dev1));
+			assertEquals(true, lift.isInLift(dev2));
+			expected.add(dev2.getCurrentDestination());
+		}else{
+			for (int x = 1; x < dev2.getCurrentDestination(); x++){
+				lift.tick();
+			}
+			lift.tick();
+			//Open lift
+			lift.tick();
+			//Let people out
+			lift.tick();
+			assertEquals(lift.getCurrentFloor(), dev2.getCurrentDestination());
+			assertEquals(true, lift.isInLift(dev1));
+			assertEquals(false, lift.isInLift(dev2));
+			expected.add(dev1.getCurrentDestination());
+		}
+		//Check destination has been removed
+		assertEquals(expected, lift.getDestinations());
+	}
 
 }

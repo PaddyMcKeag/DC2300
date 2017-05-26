@@ -316,7 +316,7 @@ public class Lift {
 
 		//Sort lower as decreasing values
 		Collections.sort(lower, Collections.reverseOrder());
-
+		
 		//add destinations to destinations arraylist dependent on movement direction
 		if (currentDirection){
 			higher.addAll(lower);
@@ -327,12 +327,13 @@ public class Lift {
 		}
 
 		//removes duplicate values from destinations array
-		for (int x = 1; x < destinations.size(); x++){
-			int temp1 = destinations.get(x-1);
-			int temp2 = destinations.get(x);
-			if (temp1 == temp2){
-				destinations.remove(x);
-				x = x - 1;
+		for (int x = 0; x < destinations.size(); x++){
+			int temp1 = destinations.get(x);
+			for (int y = 0; y < destinations.size(); y++){
+				int temp2 = destinations.get(y);
+				if (temp1 == temp2 && y != x){
+					destinations.remove(y);
+				}
 			}
 		}
 
