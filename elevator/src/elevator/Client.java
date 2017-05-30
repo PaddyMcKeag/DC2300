@@ -8,7 +8,9 @@ public class Client extends Visitor {
 		this.priority = true;
 		this.timeToLeave = (rand.nextInt(20) + 10) * 6;
 		this.currentDestination = rand.nextInt(this.halfFloorFormula());
-		this.call();
+		if (this.currentDestination != this.currentFloor) {
+			this.call();
+		}
 	}
 	
 	public void countWaitTimer() {

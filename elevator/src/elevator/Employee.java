@@ -7,7 +7,9 @@ public class Employee extends Worker {
 	public Employee(int personId, Random rand) {
 		super(personId, rand);
 		this.currentDestination = rand.nextInt(Building.getNumberOfFloors() - 1) + 1;
-		this.call();
+		if (this.currentDestination != this.currentFloor) {
+			this.call();
+		}
 	}
 
 	//should be called by run-time every tick
