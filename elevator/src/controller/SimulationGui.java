@@ -69,6 +69,7 @@ public class SimulationGui {
 				//adds placeholder to keep floors on left side
 				simFrame.add(new JLabel(""));
 			}
+			System.out.println(building.get(1).capacity());
 		}
 
 		//runs exitApp() when you try to close the window
