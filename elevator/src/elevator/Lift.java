@@ -15,6 +15,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 public class Lift {
 	//current floor that the elevator is on
@@ -163,15 +165,14 @@ public class Lift {
 				if (doorOpen){
 					//let people on or off or close door, when door is closed destination must be deleted
 
-					//Check for people whos destination is current floor then let them leave
+					//Check for people who's destination is current floor then let them leave
 					leaveLift();
 
 					//check for people to get into lift and checks they can enter then lets them enter
 					enterLift();
-
+					
 					//remove destination as everyone has left or entered
 					destinations.remove(0);
-
 				}else{
 					open();
 				}
@@ -288,8 +289,50 @@ public class Lift {
 
 	//Populates an array of destinations 
 	private void updateDestinations(){
+		/*
 		ArrayList<Integer> higher = new ArrayList<Integer>();
 		ArrayList<Integer> lower = new ArrayList<Integer>();
+
+		if (remainingCapacity() <= 0){
+			for (Person person : contains.keySet()){
+				boolean inLift = contains.get(person);
+				if (inLift){
+					if (person.getCurrentDestination() > currentFloor){
+						higher.add(person.getCurrentDestination());
+					}else{
+						lower.add(person.getCurrentDestination());
+					}
+				}
+			}
+		}else if (remainingCapacity() > 0){
+			for (Person person : contains.keySet()){
+				boolean inLift = contains.get(person);
+				if (inLift){
+					if (person.getCurrentDestination() > currentFloor){
+						higher.add(person.getCurrentDestination());
+					}else{
+						lower.add(person.getCurrentDestination());
+					}
+				}else{
+					if (person.getCurrentFloor() > currentFloor){
+						higher.add(person.getCurrentFloor());
+					}else{
+						lower.add(person.getCurrentFloor());
+					}
+				}
+			}
+		}
+		
+		//Sort higher as increasing values
+		Collections.sort(higher);
+
+		//Sort lower as decreasing values
+		Collections.sort(lower, Collections.reverseOrder());
+				
+		*/
+		ArrayList<Integer> higher = new ArrayList<Integer>();
+		ArrayList<Integer> lower = new ArrayList<Integer>();
+		ArrayList<Integer> current = new ArrayList<Integer>();
 
 		//Get each person
 		for (Person person : contains.keySet()){
@@ -298,45 +341,56 @@ public class Lift {
 				//adds destinations of everyone in the lift to the lift destinations
 				if(person.getCurrentDestination() > currentFloor){
 					higher.add(person.currentDestination);
-				}else{
+				}else if(person.getCurrentDestination() < currentFloor){
 					lower.add(person.currentDestination);
+				}else if(person.getCurrentDestination() == currentFloor){
+					current.add(person.currentDestination);
 				}
 			}else{
 				//adds current floor as these people are not in the elevator
 				if(person.getCurrentFloor() > currentFloor){
 					higher.add(person.currentFloor);
-				}else{
+				}else if(person.getCurrentFloor() < currentFloor){
 					lower.add(person.currentFloor);
+				}else if(person.getCurrentFloor() == currentFloor){
+					current.add(person.currentFloor);
 				}
 			}
 		}
-
+		
 		//Sort higher as increasing values
 		Collections.sort(higher);
-
+		
 		//Sort lower as decreasing values
 		Collections.sort(lower, Collections.reverseOrder());
 		
 		//add destinations to destinations arraylist dependent on movement direction
 		if (currentDirection){
-			higher.addAll(lower);
-			destinations.addAll(higher);
+			current.addAll(higher);
+			current.addAll(lower);
+			destinations.addAll(current);
 		}else{
-			lower.addAll(higher);
-			destinations.addAll(lower);
+			current.addAll(lower);
+			current.addAll(higher);
+			destinations.addAll(current);
 		}
-
+		System.out.println("Destinations before duplicate removal " +destinations);
 		//removes duplicate values from destinations array
-		for (int x = 0; x < destinations.size(); x++){
+		/*for (int x = 0; x < destinations.size(); x++){
 			int temp1 = destinations.get(x);
 			for (int y = 0; y < destinations.size(); y++){
 				int temp2 = destinations.get(y);
-				if (temp1 == temp2 && y != x){
+				if (temp1 == temp2){
 					destinations.remove(y);
 				}
 			}
-		}
-
+		}*/
+		Set<Integer> temp = new LinkedHashSet<>();
+		temp.addAll(destinations);
+		destinations.clear();
+		destinations.addAll(temp);
+		System.out.println("Destinations after duplicate removal " +destinations);
+		
 		//set lift direction
 		if (destinations.size() > 0){
 			if (destinations.get(0) > currentFloor){
