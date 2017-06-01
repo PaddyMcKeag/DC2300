@@ -1,5 +1,7 @@
 package controller;
 import elevator.*;
+
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -172,8 +174,8 @@ public class Controller {
 		for (Person person : people) {
 			totalWaitTime += person.getWaitTimer();
 		}
-		double averageWaitTime = totalWaitTime / lift.getPeopleTransported();
-		
+		double averageWaitTime = (double) totalWaitTime / lift.getPeopleTransported();
+		DecimalFormat df = new DecimalFormat("#.##");
 		System.out.println("Simulation ended.");
 		System.out.println("The parameters were:");
 		System.out.println("Run time = " + runTime);
@@ -192,8 +194,8 @@ public class Controller {
 		System.out.println("There were " + lift.getPeopleTransported() + " people transported.");
 		System.out.println("The total wait time was " + totalWaitTime + " ticks, or " 
 				+ (totalWaitTime * 10) + " seconds.");
-		System.out.println("The average wait time was " + averageWaitTime + " ticks, or " 
-				+ (averageWaitTime * 10 ) + " seconds.");
+		System.out.println("The average wait time was " + (df.format(averageWaitTime)) + " ticks, or " 
+				+ ((df.format(averageWaitTime * 10))) + " seconds.");
 	}
 	
 }
