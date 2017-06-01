@@ -89,7 +89,6 @@ public class Controller {
 			Crew crew = new Crew(currentPersonId, rand);
 			people.add(crew);
 			crewCount++;
-			System.out.println(crew.getPersonId() + ", a maintenance crew, have arrived.");
 			currentPersonId++;
 		}
 	}
@@ -99,7 +98,6 @@ public class Controller {
 			Client client = new Client(currentPersonId, rand);
 			people.add(client);
 			clientCount++;
-			System.out.println(client.getPersonId() + ", a client, has arrived with destination" + client.getCurrentDestination());
 			currentPersonId++;
 		}
 	}
@@ -136,7 +134,6 @@ public class Controller {
 				((Worker) person).changeDestination(changeFloorChance);
 			} 
 			if ((person.getCurrentDestination() != person.getCurrentFloor()) && !(lift.isInLift(person))) {
-				System.out.println("Wait timer incremented");
 				person.countWaitTimer();
 			}
 		}
@@ -144,7 +141,6 @@ public class Controller {
 	
 	private static void hometime() {
 		//when everyone's destination is their location, end
-		System.out.println("The work day has ended.");
 		boolean emptyBuilding = false;
 		for (Person person : people) {
 			if (!lift.isInLift(person)) {
