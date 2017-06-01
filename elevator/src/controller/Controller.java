@@ -135,7 +135,8 @@ public class Controller {
 			} else if (person instanceof Worker) {
 				((Worker) person).changeDestination(changeFloorChance);
 			} 
-			if (person.getCurrentDestination() != person.getCurrentDestination() && !lift.isInLift(person)) {
+			if ((person.getCurrentDestination() != person.getCurrentFloor()) && !(lift.isInLift(person))) {
+				System.out.println("Wait timer incremented");
 				person.countWaitTimer();
 			}
 		}
