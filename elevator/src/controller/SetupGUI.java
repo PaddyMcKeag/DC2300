@@ -39,9 +39,9 @@ public class SetupGUI{
 		floorSlider = new LabelledSlider("Number of floors: ", 3, 15, 6);
 		elevatorCapacitySlider = new LabelledSlider("Elevator capacity: ", 4, 20, 4);
 		runTimeSlider = new LabelledSlider("Select simulation run time in ticks (1 tick = 10 seconds): ", 300, 6000, 2880);
-		employeeSlider = new LabelledSlider("Number of employees: ", 0, 50, 20);
-		gogglesDeveloperSlider = new LabelledSlider("Select number of goggles developers: ", 0, 20, 10);
-		mugtomeDeveloperSlider = new LabelledSlider("Number of Mugtome developers: ", 0, 20, 10);
+		employeeSlider = new LabelledSlider("Number of employees: ", 0, 50, 10);
+		gogglesDeveloperSlider = new LabelledSlider("Select number of goggles developers: ", 0, 20, 5);
+		mugtomeDeveloperSlider = new LabelledSlider("Number of Mugtome developers: ", 0, 20, 5);
 		randomSeedSlider = new LabelledSlider("Random seed: ", 1, 10, 1);
 		SpinnerNumberModel changeFloorModel = new SpinnerNumberModel(0.001, 0.000, 1, 0.001);
 		changeFloorSpinner = new JSpinner(changeFloorModel);
