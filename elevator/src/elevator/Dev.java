@@ -9,7 +9,7 @@ public class Dev extends Worker {
 	//sets up the rand and determines starting destination
 	public Dev(int id, Random rand, boolean company) {
 		super(id, rand);
-		this.currentDestination = rand.nextInt(this.halfFloorFormula()) + this.halfFloorFormula();
+		this.currentDestination = rand.nextInt(this.halfFloorFormula()) + this.halfFloorFormula() - 1;
 		this.company = company;
 		this.call();
 	}
@@ -20,7 +20,7 @@ public class Dev extends Worker {
 	public void changeDestination(double probability) {
 		if (!waiting) {
 			if (rand.nextDouble() < probability) {
-				currentDestination = rand.nextInt(this.halfFloorFormula()) + this.halfFloorFormula();
+				currentDestination = rand.nextInt(this.halfFloorFormula()) + this.halfFloorFormula() - 1;
 				if (this.currentDestination != this.currentFloor) {
 					this.call();
 				}
