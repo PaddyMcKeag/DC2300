@@ -89,12 +89,10 @@ public class Lift {
 
 	private void open(){
 		doorOpen = true;
-		System.out.println("The lift has opened its doors on " + this.currentFloor);
 	}
 
 	private void close(){
 		doorOpen = false;
-		System.out.println("The lift has closed its doors on " + this.currentFloor);
 	}
 
 	private void moveUp(){
@@ -105,7 +103,6 @@ public class Lift {
 			//must not be trying to go above the limit of the building
 			if (currentFloor < Building.getNumberOfFloors()){
 				currentFloor = currentFloor + 1;
-				System.out.println("The lift has moved up to floor " + currentFloor);
 			}
 		};
 	}
@@ -118,7 +115,6 @@ public class Lift {
 			//must not be trying to go below the building
 			if (currentFloor > 0){
 				currentFloor = currentFloor - 1;
-				System.out.println("The lift has moved down to floor " + currentFloor);
 			}
 		}
 	}
@@ -192,23 +188,11 @@ public class Lift {
 
 	//Finds people who want to leave the lift
 	private void leaveLift(){
-		/*
-		for (Person person : contains.keySet()){
-			boolean inLift = contains.get(person);
-			//if the person is in the lift and there destination is the current floor do...
-			if (inLift && person.currentDestination == currentFloor){
-				//remove from contains as they are not waiting for a lift
-				contains.remove(person);
-				//change their current floor to represent where they are now
-				person.setCurrentFloor(currentFloor);
-			}
-		} */
 		for (Iterator<Person> iterator = contains.keySet().iterator(); iterator.hasNext();) {
 			Person person = iterator.next();
 			if (this.isInLift(person) && person.currentDestination == this.currentFloor) {
 				iterator.remove();
 				person.setCurrentFloor(this.currentFloor);
-				System.out.println(person.personId + " has left the lift onto floor " + currentFloor);
 			}
 		}
 	}
@@ -221,7 +205,6 @@ public class Lift {
 			if (!inLift && person.currentFloor == currentFloor && allowedToEnter(person) && person.getPriority()){
 				contains.put(person, true);
 				peopleTransported++;
-				System.out.println(person.personId + " has entered the lift to travel to " + person.getCurrentDestination());
 			}
 		}
 		//then checks for other people
@@ -230,7 +213,6 @@ public class Lift {
 			if (!inLift && person.currentFloor == currentFloor && allowedToEnter(person)){
 				contains.put(person, true);
 				peopleTransported++;
-				System.out.println(person.personId + " has entered the lift to travel to " + person.getCurrentDestination());
 			}
 		}
 	}
@@ -261,11 +243,7 @@ public class Lift {
 				if (person instanceof Dev){
 					if(((Dev) developer).getCompany() != ((Dev) person).getCompany()){
 						//returns false if both people in lift and developer work for rival companies
-						//e.g. can both be in the lift at the same time
-						System.out.println(developer.getPersonId() 
-								+ " works for a different company than " + person.getPersonId()
-								+ " so won't get in the lift with them.");
-								
+						//e.g. can both be in the lift at the same time								
 						return false;
 					}
 				}
@@ -289,47 +267,6 @@ public class Lift {
 
 	//Populates an array of destinations 
 	private void updateDestinations(){
-		/*
-		ArrayList<Integer> higher = new ArrayList<Integer>();
-		ArrayList<Integer> lower = new ArrayList<Integer>();
-
-		if (remainingCapacity() <= 0){
-			for (Person person : contains.keySet()){
-				boolean inLift = contains.get(person);
-				if (inLift){
-					if (person.getCurrentDestination() > currentFloor){
-						higher.add(person.getCurrentDestination());
-					}else{
-						lower.add(person.getCurrentDestination());
-					}
-				}
-			}
-		}else if (remainingCapacity() > 0){
-			for (Person person : contains.keySet()){
-				boolean inLift = contains.get(person);
-				if (inLift){
-					if (person.getCurrentDestination() > currentFloor){
-						higher.add(person.getCurrentDestination());
-					}else{
-						lower.add(person.getCurrentDestination());
-					}
-				}else{
-					if (person.getCurrentFloor() > currentFloor){
-						higher.add(person.getCurrentFloor());
-					}else{
-						lower.add(person.getCurrentFloor());
-					}
-				}
-			}
-		}
-		
-		//Sort higher as increasing values
-		Collections.sort(higher);
-
-		//Sort lower as decreasing values
-		Collections.sort(lower, Collections.reverseOrder());
-				
-		*/
 		ArrayList<Integer> higher = new ArrayList<Integer>();
 		ArrayList<Integer> lower = new ArrayList<Integer>();
 		ArrayList<Integer> current = new ArrayList<Integer>();
@@ -374,22 +311,11 @@ public class Lift {
 			current.addAll(higher);
 			destinations.addAll(current);
 		}
-		System.out.println("Destinations before duplicate removal " +destinations);
-		//removes duplicate values from destinations array
-		/*for (int x = 0; x < destinations.size(); x++){
-			int temp1 = destinations.get(x);
-			for (int y = 0; y < destinations.size(); y++){
-				int temp2 = destinations.get(y);
-				if (temp1 == temp2){
-					destinations.remove(y);
-				}
-			}
-		}*/
+		
 		Set<Integer> temp = new LinkedHashSet<>();
 		temp.addAll(destinations);
 		destinations.clear();
 		destinations.addAll(temp);
-		System.out.println("Destinations after duplicate removal " +destinations);
 		
 		//set lift direction
 		if (destinations.size() > 0){
