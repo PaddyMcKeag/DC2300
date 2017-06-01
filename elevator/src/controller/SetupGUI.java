@@ -36,12 +36,12 @@ public class SetupGUI{
 		frame = new JFrame("setup");
 		intro = new JLabel("Welcome to the elevator simulator, choose your simulation parameters.");
 		placeholder = new JLabel("");
-		floorSlider = new LabelledSlider("Number of floors: ", 2, 15, 2);
+		floorSlider = new LabelledSlider("Number of floors: ", 3, 15, 6);
 		elevatorCapacitySlider = new LabelledSlider("Elevator capacity: ", 4, 20, 4);
-		runTimeSlider = new LabelledSlider("Select simulation run time in ticks (1 tick = 10 seconds): ", 300, 3000, 300);
-		employeeSlider = new LabelledSlider("Number of employees: ", 0, 50, 0);
-		gogglesDeveloperSlider = new LabelledSlider("Select number of goggles developers: ", 0, 20, 0);
-		mugtomeDeveloperSlider = new LabelledSlider("Number of Mugtome developers: ", 0, 20, 0);
+		runTimeSlider = new LabelledSlider("Select simulation run time in ticks (1 tick = 10 seconds): ", 300, 6000, 2880);
+		employeeSlider = new LabelledSlider("Number of employees: ", 0, 50, 20);
+		gogglesDeveloperSlider = new LabelledSlider("Select number of goggles developers: ", 0, 20, 10);
+		mugtomeDeveloperSlider = new LabelledSlider("Number of Mugtome developers: ", 0, 20, 10);
 		randomSeedSlider = new LabelledSlider("Random seed: ", 1, 10, 1);
 		SpinnerNumberModel changeFloorModel = new SpinnerNumberModel(0.001, 0.000, 1, 0.001);
 		changeFloorSpinner = new JSpinner(changeFloorModel);
@@ -64,7 +64,7 @@ public class SetupGUI{
 		floorSlider.setMajorTickSpacing(1);
 		elevatorCapacitySlider.setMajorTickSpacing(2);
 		employeeSlider.setMajorTickSpacing(5);
-		runTimeSlider.setMajorTickSpacing(300);
+		runTimeSlider.setMajorTickSpacing(500);
 		gogglesDeveloperSlider.setMajorTickSpacing(2);
 		mugtomeDeveloperSlider.setMajorTickSpacing(2);
 		randomSeedSlider.setMajorTickSpacing(1);
@@ -103,7 +103,6 @@ public class SetupGUI{
 				model.setChangeFloorChance((double) changeFloorSpinner.getValue());
 				model.setClientArrivalChance((double) clientArrivalSpinner.getValue());
 				model.setRunFlag(true);
-				System.out.print("Model is " + model);
 				frame.dispose();
 			}
 		});

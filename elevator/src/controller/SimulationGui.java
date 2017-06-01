@@ -58,7 +58,6 @@ public class SimulationGui {
 
 		//setup the gui by adding elements in correct order to produce wanted outcome
 		for(int i=building.size()-1; i>=0; i--){
-			System.out.println("adding floor");
 			JList<String> floor = new JList<String>(building.get(i));
 			//set floor properties
 			floor.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
@@ -77,7 +76,6 @@ public class SimulationGui {
 				//adds placeholder to keep floors on left side
 				simFrame.add(new JLabel(""));
 			}
-			System.out.println(building.get(1).capacity());
 		}
 
 		//runs exitApp() when you try to close the window
