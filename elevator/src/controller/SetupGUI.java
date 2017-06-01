@@ -10,7 +10,7 @@ import elevator.LabelledSlider;
 
 public class SetupGUI{
 
-	private SetupFoo model;
+	private Model model;
 	private JFrame frame;
 	private JLabel intro;
 	private JLabel placeholder;
@@ -27,12 +27,12 @@ public class SetupGUI{
 	//private JFormattedTextField clientArrivalChance;
 	private JButton run;
 
-	public SetupFoo getModel(){
+	public Model getModel(){
 		return model;
 	}
 
 	public SetupGUI(){
-		model = new SetupFoo();
+		model = new Model();
 		frame = new JFrame("setup");
 		intro = new JLabel("Welcome to the elevator simulator, choose your simulation parameters.");
 		placeholder = new JLabel("");

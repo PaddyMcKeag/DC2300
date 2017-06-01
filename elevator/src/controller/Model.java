@@ -1,6 +1,6 @@
 package controller;
 
-public class SetupFoo {
+public class Model {
 	private int numberOfFloors;
 	private int elevatorCapacity;
 	private int runTime;
@@ -12,7 +12,7 @@ public class SetupFoo {
 	private double clientArrivalChance;
 	private boolean runFlag;
 	
-	public SetupFoo() {
+	public Model() {
 		numberOfFloors = 1;
 		elevatorCapacity = 4;
 		runTime = 300;

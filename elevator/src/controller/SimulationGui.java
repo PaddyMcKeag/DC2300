@@ -37,14 +37,22 @@ public class SimulationGui {
 		//elevator properties
 		elevator.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
 		elevator.setSelectedIndex(0);
-		elevator.setVisibleRowCount(3); 
+		elevator.setVisibleRowCount(3);
 
 		//creates number of floors = to input param and adds one string to use as floor label, then adds to arraylist to store 
 		for(int i=0;i<numberOfFloors;i++){
-			DefaultListModel<String> model = new DefaultListModel<String>();			
+			DefaultListModel<String> model = new DefaultListModel<String>();
 			building.add(model);
+			
 		}
 
+		//hide exception
+		Thread.setDefaultUncaughtExceptionHandler(new Thread.UncaughtExceptionHandler() {
+		    public void uncaughtException(Thread t, Throwable e) {
+		    }
+		});
+		
+		
 		//adds floor names to model for setup 
 		populateFloorNamesAndLift();
 
@@ -125,27 +133,28 @@ public class SimulationGui {
 		//Don't quit
 	}
 
-	//updates the gui with locations of people each tick 
-	public void simTick(ArrayList<Person> people,Lift lift,int currentTime){
-		runTimeLabel.setText("<html>Current run time: " + currentTime + "<br> Simulation will end at: " + this.runTime +"<html>");
+	// updates the gui with locations of people each tick
+	public void simTick(ArrayList<Person> people, Lift lift, int currentTime) {
+			runTimeLabel.setText("<html>Current run time: " + currentTime + "<br> Simulation will end at: "
+					+ this.runTime + "<html>");
 
-		//clears each floor and elevator
-		elevatorList.clear();
-		for(int i=0;i<building.size();i++){
-			building.get(i).clear();
-		}
+			// clears each floor and elevator
+			elevatorList.clear();
+			for (int i = 0; i < building.size(); i++) {
+				building.get(i).clear();
+			}
 
-		//adds floor names to model
-		populateFloorNamesAndLift(lift);
+			// adds floor names to model
+			populateFloorNamesAndLift(lift);
 
-		//populates floors and elevators with people
-		for (int i=0;i<people.size();i++){
-			if (lift.isInLift(people.get(i))){
-				elevatorList.addElement(Integer.toString(people.get(i).getPersonId()));
-			}else{
-				int currentFloor = people.get(i).getCurrentFloor();
-				building.get(currentFloor).addElement(Integer.toString(people.get(i).getPersonId()));
+			// populates floors and elevators with people
+			for (int i = 0; i < people.size(); i++) {
+				if (lift.isInLift(people.get(i))) {
+					elevatorList.addElement(Integer.toString(people.get(i).getPersonId()));
+				} else {
+					int currentFloor = people.get(i).getCurrentFloor();
+					building.get(currentFloor).addElement(Integer.toString(people.get(i).getPersonId()));
+				}
 			}
 		}
-	}
 }
