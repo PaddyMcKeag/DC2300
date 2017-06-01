@@ -133,6 +133,7 @@ public class SimulationGui {
 
 	// updates the gui with locations of people each tick
 	public void simTick(ArrayList<Person> people, Lift lift, int currentTime) {
+		System.out.println(currentTime);
 			runTimeLabel.setText("<html>Current run time: " + currentTime + "<br> Simulation will end at: "
 					+ this.runTime + "<html>");
 

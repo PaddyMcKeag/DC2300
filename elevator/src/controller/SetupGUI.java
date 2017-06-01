@@ -45,7 +45,7 @@ public class SetupGUI{
 		randomSeedSlider = new LabelledSlider("Random seed: ", 1, 10, 1);
 		SpinnerNumberModel changeFloorModel = new SpinnerNumberModel(0.001, 0.000, 1, 0.001);
 		changeFloorSpinner = new JSpinner(changeFloorModel);
-		SpinnerNumberModel clientArrivalModel = new SpinnerNumberModel(0.001, 0.000, 1, 0.001);
+		SpinnerNumberModel clientArrivalModel = new SpinnerNumberModel(0.002, 0.000, 1, 0.002);
 		clientArrivalSpinner = new JSpinner(clientArrivalModel);
 		run = new JButton("Run");
 
