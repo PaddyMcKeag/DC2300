@@ -54,11 +54,12 @@ public class Controller {
 		clientArrivalChance = gui.getModel().getClientArrivalChance();
 		seed = (gui.getModel().getRandomSeed());
 		rand = new Random(seed);
-		System.out.println("hi");
+		System.out.println("Hi");
 		simGui = new SimulationGui(numberOfFloors,runTime,elevatorCapacity);
 	}
 	
 	private static void setUpModel() {
+		System.out.println("Initialising data model.");
 		lift = new Lift(elevatorCapacity);
 		building = new Building(numberOfFloors);
 		people = new ArrayList<Person>();
@@ -115,6 +116,7 @@ public class Controller {
 	}
 	
 	private static void startSim() {
+		System.out.println("Starting simulation");
 		int timer = 0;
 		while(timer < runTime) {
 			addCrew();
@@ -170,6 +172,7 @@ public class Controller {
 		for (Person person : people) {
 			totalWaitTime += person.getWaitTimer();
 		}
+		double averageWaitTime = totalWaitTime / lift.getPeopleTransported();
 		
 		System.out.println("Simulation ended.");
 		System.out.println("The parameters were:");
@@ -187,8 +190,10 @@ public class Controller {
 		System.out.println("There were " + clientCount + " clients.");
 		System.out.println("This resulted in " + building.getComplaints() + " complains from clients waiting too long.");
 		System.out.println("There were " + lift.getPeopleTransported() + " people transported.");
-		System.out.println("The total wait time was " + totalWaitTime);
-		System.out.println("The average wait time was " + ((double)totalWaitTime / lift.getPeopleTransported()));
+		System.out.println("The total wait time was " + totalWaitTime + " ticks, or " 
+				+ (totalWaitTime * 10) + " seconds.");
+		System.out.println("The average wait time was " + averageWaitTime + " ticks, or " 
+				+ (averageWaitTime * 10 ) + " seconds.");
 	}
 	
 }
