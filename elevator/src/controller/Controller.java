@@ -59,7 +59,7 @@ public class Controller {
 	}
 	
 	private static void setUpModel() {
-		System.out.println("Initialising data model.");
+		System.out.println("Initialising data model");
 		lift = new Lift(elevatorCapacity);
 		building = new Building(numberOfFloors);
 		people = new ArrayList<Person>();
