@@ -100,6 +100,7 @@ public class SetupGUI{
 				model.setNumberOfEmployees(employeeSlider.getValue());
 				model.setNumberOfGoggles(gogglesDeveloperSlider.getValue());
 				model.setNumberOfMugtome(mugtomeDeveloperSlider.getValue());
+				model.setRandomSeed(randomSeedSlider.getValue());
 				model.setChangeFloorChance((double) changeFloorSpinner.getValue());
 				model.setClientArrivalChance((double) clientArrivalSpinner.getValue());
 				model.setRunFlag(true);
@@ -110,6 +111,19 @@ public class SetupGUI{
 
 		frame.pack();
 		frame.setVisible(true);
+	}
+	
+	public SetupGUI(int runTime, int numberOfFloors, int elevatorCapacity, int employee, int goggles,int mugtome, int seed, double changeFloorChance, double clientArrivalChance){
+		model.setRunTime(runTime);
+		model.setNumberOfFloors(numberOfFloors);
+		model.setElevatorCapacity(elevatorCapacity);
+		model.setNumberOfEmployees(employee);
+		model.setNumberOfGoggles(goggles);
+		model.setNumberOfMugtome(mugtome);
+		model.setRandomSeed(seed);
+		model.setChangeFloorChance(changeFloorChance);
+		model.setClientArrivalChance(clientArrivalChance);
+		model.setRunFlag(true);
 	}
 
 	
