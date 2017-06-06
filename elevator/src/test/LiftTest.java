@@ -220,7 +220,7 @@ public class LiftTest {
 			assertEquals(false, lift.isInLift(dev1));
 			assertEquals(true, lift.isInLift(dev2));
 			expected.add(dev2.getCurrentDestination());
-		}else{
+		}else if (dev1.getCurrentDestination() > dev2.getCurrentDestination()){
 			for (int x = 1; x < dev2.getCurrentDestination(); x++){
 				lift.tick();
 			}
@@ -233,6 +233,18 @@ public class LiftTest {
 			assertEquals(true, lift.isInLift(dev1));
 			assertEquals(false, lift.isInLift(dev2));
 			expected.add(dev1.getCurrentDestination());
+		}else{
+			for (int x = 1; x < dev2.getCurrentDestination(); x++){
+				lift.tick();
+			}
+			lift.tick();
+			//Open lift
+			lift.tick();
+			//Let people out
+			lift.tick();
+			assertEquals(lift.getCurrentFloor(), dev2.getCurrentDestination());
+			assertEquals(false, lift.isInLift(dev1));
+			assertEquals(false, lift.isInLift(dev2));
 		}
 		//Check destination has been removed
 		assertEquals(expected, lift.getDestinations());
