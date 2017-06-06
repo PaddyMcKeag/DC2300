@@ -47,7 +47,9 @@ public abstract class Person {
 		this.rand = rand;
 	}
 	
-	//calls the lift if the destination is wrong
+	/**
+	 * If the person is not at their desired destination, the lift is called.
+	 */
 	protected void call() {
 		if (currentDestination != currentFloor) {
 			Lift.addDestination(this);
@@ -56,7 +58,6 @@ public abstract class Person {
 	
 	/**
 	 * Returns the destination of the person.
-	 * @return The integer number denoting the current destination floor.
 	 */
 	public int getCurrentDestination() {
 		return currentDestination;
@@ -64,7 +65,6 @@ public abstract class Person {
 
 	/**
 	 * Returns the location of the person.
-	 * @return The integer number denoting the current floor.
 	 */
 	public int getCurrentFloor() {
 		return currentFloor;
@@ -72,7 +72,6 @@ public abstract class Person {
 	
 	/**
 	 * Returns the ID of the person.
-	 * @return The person ID as an integer.
 	 */
 	public int getPersonId() {
 		return personId;
@@ -80,7 +79,6 @@ public abstract class Person {
 	
 	/**
 	 * Returns the size of the person, for determining the elevator capacity.
-	 * @return The size of the person (should be either 1 or 4)
 	 */
 	public int getSize() {
 		return size;
@@ -88,7 +86,6 @@ public abstract class Person {
 
 	/**
 	 * Returns whether the person has priority for getting in the lift.
-	 * @return Boolean of priority (clients have it, others do not)
 	 */
 	public boolean getPriority() {
 		return priority;
@@ -116,7 +113,6 @@ public abstract class Person {
 	
 	/**
 	 * A formula that neatly halves the number of floors in the building, rounding up.
-	 * @return The number of floors in the building / 2, rounded up.
 	 */
 	public int halfFloorFormula() {
 		return Building.getNumberOfFloors() / 2 + (Building.getNumberOfFloors() % 2 == 0 ? 0 : 1);
@@ -131,7 +127,6 @@ public abstract class Person {
 	
 	/**
 	 * Returns the amount of time this person has spent waiting for lifts all day.
-	 * @return
 	 */
 	public int getWaitTimer() {
 		return waitTimer;

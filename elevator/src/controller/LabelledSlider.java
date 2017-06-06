@@ -1,4 +1,4 @@
-package elevator;
+package controller;
 import java.awt.*;
 import javax.swing.*;
 import javax.swing.event.*;
