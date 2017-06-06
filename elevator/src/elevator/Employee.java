@@ -14,14 +14,7 @@ public class Employee extends Worker {
 
 	//should be called by run-time every tick
 	//cannot change their mind while waiting
-	public void changeDestination(double probability) {
-		if (!waiting) {
-			if (rand.nextDouble() < probability) {
-				this.currentDestination = rand.nextInt(Building.getNumberOfFloors() -1);
-				if (this.currentDestination != this.currentFloor) {
-					this.call();
-				}
-			}
-		}
+	public int determineDestination(double probability) {
+		return rand.nextInt(Building.getNumberOfFloors() -1);
 	}
 }

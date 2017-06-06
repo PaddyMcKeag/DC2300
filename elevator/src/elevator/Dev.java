@@ -17,21 +17,13 @@ public class Dev extends Worker {
 	
 	//should be called by the run-time every tick
 	//cannot change their mind while waiting for the lift
-	public void changeDestination(double probability) {
-		if (!waiting) {
-			if (rand.nextDouble() < probability) {
-				currentDestination = rand.nextInt(this.halfFloorFormula()) + this.halfFloorFormula() - 1;
-				if (this.currentDestination != this.currentFloor) {
-					this.call();
-				}
-			}
-			
-		}
+	public int determineDestination() {
+		return rand.nextInt(this.halfFloorFormula()) + this.halfFloorFormula() - 1;
 	}
 	
 
 	public boolean getCompany() {
-		return company;
+		return this.company;
 	}
 	
 }

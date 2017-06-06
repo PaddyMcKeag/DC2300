@@ -27,7 +27,20 @@ public abstract class Worker extends Person {
 		return waiting;
 	}
 	
-	//stub for override
 	public void changeDestination(double probability) {
+		if (!waiting) {
+			if (rand.nextDouble() < probability) {
+				currentDestination = this.determineDestination();
+				if (this.currentDestination != this.currentFloor) {
+					this.call();
+				}
+			}
+			
+		}
+	}
+	
+	//stub for override
+	public int determineDestination() {
+		return -1;
 	}
 }
