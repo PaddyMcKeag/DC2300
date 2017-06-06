@@ -26,7 +26,7 @@ public class DevTest {
 	public void constructorTest() {
 		assertNotNull(dev);		
 		assertFalse(dev.getCurrentDestination() < dev.halfFloorFormula() ||
-				dev.getCurrentDestination() > Building.getNumberOfFloors());
+				dev.getCurrentDestination() >= Building.getNumberOfFloors());
 	}
 	
 	@Test

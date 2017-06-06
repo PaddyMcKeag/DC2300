@@ -9,7 +9,7 @@ public class Dev extends Worker {
 	//sets up the rand and determines starting destination
 	public Dev(int id, Random rand, boolean company) {
 		super(id, rand);
-		this.currentDestination = rand.nextInt(this.halfFloorFormula()) + this.halfFloorFormula() - 1;
+		this.currentDestination = rand.nextInt(this.halfFloorFormula()) + (Building.getNumberOfFloors() / 2);
 		this.company = company;
 		this.call();
 	}

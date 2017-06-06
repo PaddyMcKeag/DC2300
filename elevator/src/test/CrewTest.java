@@ -26,7 +26,7 @@ public class CrewTest {
 	public void constructorTest() {
 		assertNotNull(crew);		
 		assertTrue(crew.getTimeToLeave() <= 240 && crew.getTimeToLeave() >= 60);
-		assertEquals(crew.getCurrentDestination(), Building.getNumberOfFloors());
+		assertEquals(crew.getCurrentDestination(), Building.getNumberOfFloors() - 1);
 	}
 	
 	@Test

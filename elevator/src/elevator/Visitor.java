@@ -10,20 +10,20 @@ public abstract class Visitor extends Person {
 	
 	public Visitor(int personId, Random rand) {
 		super(personId, rand);
-		timeInBuilding = 0;
+		this.timeInBuilding = 0;
 	}
 	
 	//counts up the timer to the point where the visitor leaves
 	public int addToTimer() {
-		if (timeInBuilding < timeToLeave) {
-			timeInBuilding++;
+		if (this.timeInBuilding < this.timeToLeave) {
+			this.timeInBuilding++;
 		} else
 			this.leave();
-		return timeInBuilding;
+		return this.timeInBuilding;
 	}
 	
 	public int getTimeToLeave() { 
-		return timeToLeave;
+		return this.timeToLeave;
 	}
 	
 }

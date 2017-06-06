@@ -9,28 +9,28 @@ public abstract class Worker extends Person {
 	//constructs person with ID and destination
 	public Worker(int personId, Random rand) {
 		super(personId, rand);
-		waiting = false;
+		this.waiting = false;
 	}
 	
 	//calls the lift and makes sure they don't change their mind while waiting
 	public void call() {
 		super.call();
-		waiting = true;
+		this.waiting = true;
 	}
 	
 	public void setCurrentFloor(int currentFloor) {
 		super.setCurrentFloor(currentFloor);
-		waiting = false;
+		this.waiting = false;
 	}
 	
 	public boolean getWaiting() {
-		return waiting;
+		return this.waiting;
 	}
 	
 	public void changeDestination(double probability) {
-		if (!waiting) {
+		if (!this.waiting) {
 			if (rand.nextDouble() < probability) {
-				currentDestination = this.determineDestination();
+				this.currentDestination = this.determineDestination();
 				if (this.currentDestination != this.currentFloor) {
 					this.call();
 				}

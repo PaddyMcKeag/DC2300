@@ -47,7 +47,6 @@ public class EmployeeTest {
 	
 	@Test 
 	public void callTest() {
-		assertTrue(employee.getWaiting());
 		employee.setCurrentFloor(employee.getCurrentDestination());
 		assertFalse(employee.getWaiting());
 		employee.changeDestination(1.0);
@@ -59,7 +58,6 @@ public class EmployeeTest {
 	
 	@Test
 	public void leaveTest() {
-		assertNotEquals(0, employee.getCurrentDestination());
 		employee.leave();
 		assertTrue(employee.getWaiting());
 		assertEquals(0, employee.getCurrentDestination());
